@@ -7,6 +7,7 @@ public class LU_method {
     private static double[][] U_matrix;
     private static double[][] A_matrix;
     private static double[] b;
+    private static int sign;
 
     private static double[][] E_matrix = { {1, 0, 0, 0},
                                            {0, 1, 0, 0},
@@ -42,7 +43,7 @@ public class LU_method {
         A_matrix = matr;
     }
 
-    public static void decompose() {
+    public static void decompose_without_perm() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 U_matrix[0][i] = A_matrix[0][i];
@@ -69,13 +70,12 @@ public class LU_method {
         double[][] C = new double[dim][dim];
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                C[i][j] = 0.00000;
+                C[i][j] = 0.0;
             }
         }
-
-        for (int i = 0; i < dim; i++) { // aRow
-            for (int j = 0; j < dim; j++) { // bColumn
-                for (int k = 0; k < dim; k++) { // aColumn
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                for (int k = 0; k < dim; k++) {
                     C[i][j] += A[i][k] * B[k][j];
                 }
             }
@@ -83,64 +83,60 @@ public class LU_method {
         return C;
     }
 
-    public static void decompose1() { // LU != A
-        double[][] newL = new double[dim][dim];
-        double[][] newU = new double[dim][dim];
-        double[][] newA = new double[dim][dim];
+    public static void decompose() {
+        double[][] tmpL = new double[dim][dim];
+        double[][] tmpA = new double[dim][dim];
+        double[][] originalA = new double[dim][dim];
+        double[] original_b = new double[dim];
         int[] p = new int[dim];
+        boolean flag = false;
+
         for (int i = 0; i < dim; i++) {
             p[i] = i;
-            //newL[i][i] = 1.0;
-            System.arraycopy(A_matrix, 0, newA, 0, dim);
+            System.arraycopy(A_matrix[i], 0, tmpA[i], 0, dim);
+            System.arraycopy(A_matrix[i], 0, originalA[i], 0, dim);
         }
+        System.arraycopy(b, 0, original_b, 0, dim);
+
         for (int i = 0; i < dim - 1; i++) {
-            double max = Math.abs(newA[p[i]][i]);
+            double max = Math.abs(tmpA[p[i]][i]);
             int pos = i;
             for (int j = i + 1; j < dim; j++) {
-                if (Math.abs(newA[p[j]][i]) > max) {
-                    max = newA[p[j]][i];
+                if (Math.abs(tmpA[p[j]][i]) > max) {
+                    max = tmpA[p[j]][i];
                     pos = j;
                 }
             }
-            if (max != i) {
-                int c = p[i];
-                p[i] = p[pos];
-                p[pos] = c;
-
+            if (pos != i) {
+                flag = !(flag & true);
             }
+            int c = p[i];
+            p[i] = p[pos];
+            p[pos] = c;
             for (int j = i + 1; j < dim; j++) {
-                double k = newA[p[j]][i] / newA[p[i]][i];
-                for (int l = 0; l < dim; l++) {
-                    newA[p[j]][l] -= k * newA[p[i]][l];
+                double k = tmpA[p[j]][i] / tmpA[p[i]][i];
+                for (int h = 0; h < dim; h++) {
+                    tmpA[p[j]][h] -= k * tmpA[p[i]][h];
                 }
-                newL[p[j]][i] = k;
+                tmpL[p[j]][i] = k;
             }
         }
-        double[][] tmp = new double[dim][dim];
         for (int i = 0; i < dim; i++) {
-            System.arraycopy(newA[p[i]], 0, newU[i], 0, dim);
-            System.arraycopy(newL[p[i]], 0, tmp[i], 0, dim);
+            System.arraycopy(tmpA[p[i]], 0, U_matrix[i], 0, dim);
+            System.arraycopy(tmpL[p[i]], 0, L_matrix[i], 0, dim);
+            System.arraycopy(originalA[p[i]], 0, A_matrix[i], 0, dim);
+            b[i] = original_b[p[i]];
         }
-        double[][] mult = multiply(newL, newA);
-        System.out.println("Mult: ");
-        print_matrix(mult);
-
-        System.out.println("\nMatrix L:");
-        print_matrix(tmp);
-        System.out.println("\nMatrix U:");
-        print_matrix(newU);
-/*
-        LU_method check = new LU_method(4, newU, b);
-        check.decompose();
-        double[][] inv_c = check.inverse_matrix();
-        System.out.println("Inverse U: ");
-        print_matrix(inv_c);
-        double[][] mult = multiply(A_matrix, inv_c);
-        System.out.println("Mult: ");
-        print_matrix(mult);
-        */
-
+        for (int i = 0; i < dim; i++) {
+            L_matrix[i][i] = 1.0;
+        }
+        if (flag) {
+            sign = -1;
+        } else {
+            sign = 1;
+        }
     }
+
 
     public static double[] solve(double[] column) {
         double[] tmp = new double[dim];
@@ -175,7 +171,7 @@ public class LU_method {
         for (int i = 0; i < dim; i++) {
             res *= U_matrix[i][i];
         }
-        return res;
+        return res * sign;
     }
 
     public static void print_matrix(double[][] matrix) {
@@ -189,17 +185,13 @@ public class LU_method {
 
     public static void lab1_n8(LU_method system) {
         // Item 1.1
-        /*
+        system.decompose();
         System.out.println("Matrix A:");
         print_matrix(system.A_matrix);
-        system.decompose();
         System.out.println("\nMatrix L:");
         print_matrix(system.L_matrix);
         System.out.println("\nMatrix U:");
         print_matrix(system.U_matrix);
-        */
-
-        /*
         System.out.println("\nDeterminant = " + system.determinant() + "\n");
         double[] solving = system.solve(system.b);
         System.out.println("\nSolving of system:");
@@ -207,10 +199,11 @@ public class LU_method {
             System.out.print("" + solving[i] + " ");
         }
         double[][] inverse_m = system.inverse_matrix();
-        System.out.println("\nInvese matrix:");
+        System.out.println("\nInverse matrix:");
         print_matrix(inverse_m);
-        */
-        system.decompose1();
+        double[][] obr = multiply(system.A_matrix, inverse_m);
+        System.out.println("\nA * A^-1:");
+        print_matrix(obr);
     }
 
     public static void main(String[] args) {
