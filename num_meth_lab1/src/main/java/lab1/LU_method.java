@@ -183,38 +183,26 @@ public class LU_method {
         }
     }
 
-    public static void lab1_n8(LU_method system) {
+    public static void lab1_n8() {
         // Item 1.1
-        system.decompose();
+        decompose();
         System.out.println("Matrix A:");
-        print_matrix(system.A_matrix);
+        print_matrix(A_matrix);
         System.out.println("\nMatrix L:");
-        print_matrix(system.L_matrix);
+        print_matrix(L_matrix);
         System.out.println("\nMatrix U:");
-        print_matrix(system.U_matrix);
-        System.out.println("\nDeterminant = " + system.determinant() + "\n");
-        double[] solving = system.solve(system.b);
+        print_matrix(U_matrix);
+        System.out.println("\nDeterminant = " + determinant());
+        double[] solving = solve(b);
         System.out.println("\nSolving of system:");
         for (int i = 0; i < dim; i++) {
             System.out.print("" + solving[i] + " ");
         }
-        double[][] inverse_m = system.inverse_matrix();
+        double[][] inverse_m = inverse_matrix();
         System.out.println("\nInverse matrix:");
         print_matrix(inverse_m);
-        double[][] obr = multiply(system.A_matrix, inverse_m);
+        double[][] obr = multiply(A_matrix, inverse_m);
         System.out.println("\nA * A^-1:");
         print_matrix(obr);
-    }
-
-    public static void main(String[] args) {
-        double[][] matr = { {-4, -9, 4, 3},
-                            {2, 7, 9, 8},
-                            {4, -4, 0, -2},
-                            {-8, 5, 2, 9}};
-
-        double[] b = {-51, 76, 26, -73};
-
-        LU_method system = new LU_method(4, matr, b);
-        lab1_n8(system);
     }
 }
