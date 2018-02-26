@@ -25,49 +25,6 @@ public class LU_method {
         this.b = b;
     }
 
-    public LU_method(int n, double[][] matr) {
-        dim = n;
-        A_matrix = matr;
-        L_matrix = new double[n][n];
-        U_matrix = new double[n][n];
-        this.b = b;
-    }
-
-    public void setDim(int dim) {
-        this.dim = dim;
-    }
-
-    public void setB(double[] b) {
-        this.b = b;
-    }
-
-    public void setMatrix(double[][] matr) {
-        A_matrix = matr;
-    }
-
-    public static void decompose_without_perm() {
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                U_matrix[0][i] = A_matrix[0][i];
-                L_matrix[i][0] = A_matrix[i][0] / U_matrix[0][0];
-                double sum = 0;
-                for (int k = 0; k < i; k++) {
-                    sum += L_matrix[i][k] * U_matrix[k][j];
-                }
-                U_matrix[i][j] = A_matrix[i][j] - sum;
-                if (i > j) {
-                    L_matrix[j][i] = 0;
-                } else {
-                    sum = 0;
-                    for (int k = 0; k < i; k++) {
-                        sum += L_matrix[j][k] * U_matrix[k][i];
-                    }
-                    L_matrix[j][i] = (A_matrix[j][i] - sum) / U_matrix[i][i];
-                }
-            }
-        }
-    }
-
     public static double[][] multiply(double[][] A, double[][] B) {
         double[][] C = new double[dim][dim];
         for (int i = 0; i < dim; i++) {
@@ -182,17 +139,13 @@ public class LU_method {
                 double tmp = matrix[i][j] * 100000;
                 int tmp1 = (int)tmp;
                 tmp = tmp1 / 100000.0;
-                //System.out.printf("%7f", matrix[i][j]);
-                //System.out.print(" ");
-                //System.out.printf("%7f ", matrix[i][j]);
                 System.out.print("" + tmp + " ");
-                //System.out.print("%1$7f ", tmp);
             }
             System.out.println();
         }
     }
 
-    public static void lab1_n8() {
+    public static void lab1_n8_1_1() {
         // Item 1.1
         decompose();
         System.out.println("Matrix A:");
@@ -221,6 +174,7 @@ public class LU_method {
         if (!sc.hasNextInt()) return 0;
         return sc.nextInt();
     }
+
     public static void readData(String inFile, int size, double[][] matr, double[] b_column) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile);
