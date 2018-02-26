@@ -1,8 +1,10 @@
 package lab1;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class LU_method {
-    // A = LU
-    // E = AX, X = A^(-1)
     private static double[][] L_matrix;
     private static double[][] U_matrix;
     private static double[][] A_matrix;
@@ -177,7 +179,14 @@ public class LU_method {
     public static void print_matrix(double[][] matrix) {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                System.out.print("" + matrix[i][j] + " ");
+                double tmp = matrix[i][j] * 100000;
+                int tmp1 = (int)tmp;
+                tmp = tmp1 / 100000.0;
+                //System.out.printf("%7f", matrix[i][j]);
+                //System.out.print(" ");
+                //System.out.printf("%7f ", matrix[i][j]);
+                System.out.print("" + tmp + " ");
+                //System.out.print("%1$7f ", tmp);
             }
             System.out.println();
         }
@@ -204,5 +213,30 @@ public class LU_method {
         double[][] obr = multiply(A_matrix, inverse_m);
         System.out.println("\nA * A^-1:");
         print_matrix(obr);
+    }
+
+    public static int readSize(String inFile) throws FileNotFoundException {
+        File inputFile = new File(inFile);
+        Scanner sc = new Scanner(inputFile);
+        if (!sc.hasNextInt()) return 0;
+        return sc.nextInt();
+    }
+    public static void readData(String inFile, int size, double[][] matr, double[] b_column) throws FileNotFoundException {
+        File inputFile = new File(inFile);
+        Scanner sc = new Scanner(inputFile);
+        int cnt = 0;
+        double[] elem = new double[size * (size + 1)];
+        while (sc.hasNextDouble() && cnt < size * (size + 1)) {
+            elem[cnt++] = sc.nextDouble();
+        }
+        cnt = 0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                matr[i][j] = elem[cnt++];
+            }
+        }
+        for (int i = 0; i < size; i++) {
+            b_column[i] = elem[cnt++];
+        }
     }
 }

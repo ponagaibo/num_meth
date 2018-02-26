@@ -1,0 +1,12 @@
+Matrix A:
+
+Matrix L:
+
+Matrix U:
+
+Determinant = 6464.0
+Solving of system:
+15.25680693069307 -7.672029702970298 3.841584158415841 -12.035272277227724 
+Inverse matrix:
+
+A * A^-1:
