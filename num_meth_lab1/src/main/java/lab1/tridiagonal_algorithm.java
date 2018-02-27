@@ -10,7 +10,48 @@ public class tridiagonal_algorithm {
     private static double[] c_terms;
     private static double[] d_terms;
 
+    private static double[] p_coef;
+    private static double[] q_coef;
+
+    private static double[] solving;
+
     static int dim;
+
+    public static void print_matrix() {
+        System.out.println("Matrix:");
+        int a_cnt = 0;
+        int b_cnt = 0;
+        int c_cnt = 0;
+        System.out.print("" + b_terms[b_cnt++] + " ");
+        System.out.print("" + c_terms[c_cnt++] + " ");
+        for (int j = 0; j < dim - 2; j++) {
+            System.out.print("0.0 ");
+        }
+        System.out.println();
+        for (int i = 0; i < dim - 2; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print("0.0 ");
+            }
+            System.out.print("" + a_terms[a_cnt++] + " ");
+            System.out.print("" + b_terms[b_cnt++] + " ");
+            System.out.print("" + c_terms[c_cnt++] + " ");
+            for (int j = i + 3; j < dim; j++) {
+                System.out.print("0.0 ");
+            }
+            System.out.println();
+        }
+        for (int j = 0; j < dim - 2; j++) {
+            System.out.print("0.0 ");
+        }
+        System.out.print("" + a_terms[a_cnt++] + " ");
+        System.out.print("" + b_terms[b_cnt++] + " ");
+        System.out.println();
+        System.out.println("\nFree terms:");
+        for (int i = 0; i < dim; i++) {
+            System.out.print("" + d_terms[i] + " ");
+        }
+        System.out.println();
+    }
 
     public static void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
@@ -47,37 +88,43 @@ public class tridiagonal_algorithm {
             if (!sc.hasNextDouble()) return;
             d_terms[i] = sc.nextDouble();
         }
+    }
 
-        // print
-        System.out.println("Matrix:");
-        a_cnt = b_cnt = c_cnt = 0;
-        System.out.print("" + b_terms[b_cnt++] + " ");
-        System.out.print("" + c_terms[c_cnt++] + " ");
-        for (int j = 0; j < dim - 2; j++) {
-            System.out.print("0.0 ");
+    public static void algo() {
+        p_coef = new double[dim];
+        q_coef = new double[dim];
+        p_coef[0] = -c_terms[0] / b_terms[0];
+        q_coef[0] = d_terms[0] / b_terms[0];
+        for (int i = 1; i < dim - 1; i++) {
+            double denom = b_terms[i] + a_terms[i - 1] * p_coef[i - 1];
+            p_coef[i] = -c_terms[i] / denom;
+            q_coef[i] = (d_terms[i] - a_terms[i - 1] * q_coef[i - 1]) / denom;
         }
-        System.out.println();
-        for (int i = 0; i < dim - 2; i++) {
-            for (int j = 0; j < i; j++) {
-                System.out.print("0.0 ");
-            }
-            System.out.print("" + a_terms[a_cnt++] + " ");
-            System.out.print("" + b_terms[b_cnt++] + " ");
-            System.out.print("" + c_terms[c_cnt++] + " ");
-            for (int j = i + 3; j < dim; j++) {
-                System.out.print("0.0 ");
-            }
-            System.out.println();
+        p_coef[dim - 1] = 0;
+        double denom = b_terms[dim - 1] + a_terms[dim - 2] * p_coef[dim - 2];
+        q_coef[dim - 1] = (d_terms[dim - 1] - a_terms[dim - 2] * q_coef[dim - 2]) / denom;
+
+        solving = new double[dim];
+        solving[dim - 1] = q_coef[dim - 1];
+        for (int i = dim - 1; i >= 1; i--) {
+            solving[i - 1] = p_coef[i - 1] * solving[i] + q_coef[i - 1];
         }
-        for (int j = 0; j < dim - 2; j++) {
-            System.out.print("0.0 ");
-        }
-        System.out.print("" + a_terms[a_cnt++] + " ");
-        System.out.print("" + b_terms[b_cnt++] + " ");
-        System.out.println();
-        System.out.println("\nFree terms:");
+    }
+
+    public static void lab1_n8_1_2() {
+        print_matrix();
+        algo();
+        System.out.println("\nP:");
         for (int i = 0; i < dim; i++) {
-            System.out.print("" + d_terms[i] + " ");
+            System.out.print("" + p_coef[i] + " ");
+        }
+        System.out.println("\n\nQ:");
+        for (int i = 0; i < dim; i++) {
+            System.out.print("" + q_coef[i] + " ");
+        }
+        System.out.println("\n\nSolving:");
+        for (int i = 0; i < dim; i++) {
+            System.out.print("" + solving[i] + " ");
         }
     }
 }

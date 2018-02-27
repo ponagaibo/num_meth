@@ -20,5 +20,6 @@ public class Main {
         tridiagonal_algorithm trid = new tridiagonal_algorithm();
         String fl = ".//src//main//java//lab1//l1.2.txt";
         trid.readData(fl);
+        trid.lab1_n8_1_2();
     }
 }
