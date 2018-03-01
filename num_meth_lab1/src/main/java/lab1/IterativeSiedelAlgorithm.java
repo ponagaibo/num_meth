@@ -22,14 +22,12 @@ public class IterativeSiedelAlgorithm {
     static double precision;
     static double[] free_terms;
     static double[] beta_iter;
-    //static double[] beta_siedel;
 
     static double[] solving_iter;
     static double[] solving_siedel;
 
     static Element[] coefs;
     static Element[] alpha_iter;
-    //static Element[] alpha_siedel;
 
     public static Element[] append(Element[] coefs, double v, int s, int c) {
         int prev_size = coefs.length;
@@ -56,33 +54,17 @@ public class IterativeSiedelAlgorithm {
                 }
             }
         }
-
-        /*System.out.println("Coefs:");
-        for (int i = 0; i < size; i++) {
-            System.out.println("v: " + coefs[i].value + "  s: " + coefs[i].str + "  c: " + coefs[i].cl);
-        }*/
         free_terms = new double[dim];
         for (int i = 0; i < dim; i++) {
             if (!sc.hasNextDouble()) return;
             free_terms[i] = sc.nextDouble();
         }
-
-        /*System.out.println("Free terms:");
-        for (int i = 0; i < dim; i++) {
-            System.out.println("" + free_terms[i] + " ");
-        }*/
-
         if (!sc.hasNextDouble()) return;
         precision = sc.nextDouble();
-
-//        System.out.println("\nNorm of matrix: " + matrix_norm(coefs));
-//        System.out.println("\nNorm of vector: " + vector_norm(free_terms));
-
     }
 
     public static void print_matrix(Element[] coefs) {
         int cnt = 0;
-        //System.out.println("In print");
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (cnt < coefs.length && coefs[cnt].str == i && coefs[cnt].cl == j) {
@@ -135,11 +117,6 @@ public class IterativeSiedelAlgorithm {
                 diag[cnt++] = coefs[i].value;
             }
         }
-/*        System.out.println("\nDiagonals:");
-        for (int i = 0; i < dim; i++) {
-            System.out.print("" + diag[i] + " ");
-        }*/
-
         cnt = 0;
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -152,7 +129,6 @@ public class IterativeSiedelAlgorithm {
                 }
             }
         }
-
     }
 
     public static double[] multiply(Element[] coefs, double[] vect) {
@@ -178,32 +154,14 @@ public class IterativeSiedelAlgorithm {
             for (int i = 0; i < dim; i++) {
                 tmp[i] += beta_iter[i];
             }
-
-            /*System.out.println("\nbeta + alpha * x:");
-            for (int i = 0; i < dim; i++) {
-                System.out.print("" + tmp[i] + " ");
-            }
-            System.out.println();*/
-
             double[] diff = new double[dim];
             for (int i = 0; i < dim; i++) {
                 diff[i] = tmp[i] - solving_iter[i];
             }
-
-            /*System.out.println("diff:");
-            for (int i = 0; i < dim; i++) {
-                System.out.print("" + diff[i] + " ");
-            }
-            System.out.println();*/
-
             eps = (vector_norm(diff) * matrix_norm(alpha_iter)) / (1 - matrix_norm(alpha_iter));
-//            System.out.println("Norm diff: " + vector_norm(diff));
-//            System.out.println("Norm alpha: " + matrix_norm(alpha_iter));
-//            System.out.println("eps diff: " + eps);
             System.arraycopy(tmp, 0, solving_iter,0, dim);
             cnt_iter++;
         }
-        //System.out.println("Iterations: " + cnt_iter);
         return cnt_iter;
     }
 
@@ -220,19 +178,6 @@ public class IterativeSiedelAlgorithm {
             for (int i = 0; i < dim; i++) {
                 cur[i] = beta_iter[i];
                 for (int j = 0; j < dim; j++) {
-                    /*System.out.println("i: " + i + " j: " + j);
-                    System.out.println("Prev:");
-                    for (int k = 0; k < dim; k++) {
-                        System.out.print("" + prev[k] + " ");
-                    }
-                    System.out.println();
-
-                    System.out.println("Cur:");
-                    for (int k = 0; k < dim; k++) {
-                        System.out.print("" + cur[k] + " ");
-                    }
-                    System.out.println();*/
-
                     double mult = 0.0;
                     if (cnt < alpha_iter.length && alpha_iter[cnt].str == i && alpha_iter[cnt].cl == j) {
                         mult = alpha_iter[cnt++].value;
@@ -258,8 +203,6 @@ public class IterativeSiedelAlgorithm {
             cnt_siedel++;
         }
         System.arraycopy(prev, 0, solving_siedel, 0, dim);
-
-        //System.out.println("\nSiedel, iterations: " + cnt_siedel);
         return cnt_siedel;
     }
 

@@ -30,8 +30,8 @@ public class Main {
 
         // Item 1.3
         IterativeSiedelAlgorithm itAlg = new IterativeSiedelAlgorithm();
-        //itAlg.readData(".//src//main//java//lab1//l1.3.txt");
-        itAlg.readData(".//src//main//java//lab1//test.txt");
+        itAlg.readData(".//src//main//java//lab1//l1.3.txt");
+        //itAlg.readData(".//src//main//java//lab1//test.txt");
         itAlg.lab1_n8_1_3();
     }
 }

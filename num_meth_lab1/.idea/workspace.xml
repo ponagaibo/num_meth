@@ -40,8 +40,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lab1/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+            <state relative-caret-position="408">
+              <caret line="32" column="8" lean-forward="true" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -50,15 +50,10 @@
       <file leaf-file-name="IterativeSiedelAlgorithm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="29" column="27" lean-forward="true" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+            <state relative-caret-position="405">
+              <caret line="235" column="18" lean-forward="true" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#append#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-                <element signature="method#readData#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-                <element signature="method#print_matrix#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-                <element signature="method#vector_norm#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-                <element signature="method#multiply#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -90,8 +85,8 @@
         <option value="$PROJECT_DIR$/src/main/java/lab1/tridiagonal_algorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/TridiagonalAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/LU_Algorithm.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java" />
       </list>
     </option>
   </component>
@@ -368,7 +363,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="18" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -558,23 +553,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab1/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
+        <state relative-caret-position="408">
+          <caret line="32" column="8" lean-forward="true" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="29" column="27" lean-forward="true" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+        <state relative-caret-position="405">
+          <caret line="235" column="18" lean-forward="true" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#append#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-            <element signature="method#readData#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-            <element signature="method#print_matrix#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-            <element signature="method#vector_norm#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
-            <element signature="method#multiply#0;class#IterativeSiedelAlgorithm#0" expanded="false" />
           </folding>
         </state>
       </provider>
