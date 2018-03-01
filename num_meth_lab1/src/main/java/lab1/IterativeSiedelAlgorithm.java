@@ -5,13 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class IterativeSiedelAlgorithm {
-    static int dim;
-    static double precision;
-
-    static double[] free_terms;
-    static double[] beta;
-    static double[] solving;
-
     private static class Element {
         double value;
         int str;
@@ -24,8 +17,19 @@ public class IterativeSiedelAlgorithm {
 
     }
 
+    static int dim;
+
+    static double precision;
+    static double[] free_terms;
+    static double[] beta_iter;
+    //static double[] beta_siedel;
+
+    static double[] solving_iter;
+    static double[] solving_siedel;
+
     static Element[] coefs;
-    static Element[] alpha;
+    static Element[] alpha_iter;
+    //static Element[] alpha_siedel;
 
     public static Element[] append(Element[] coefs, double v, int s, int c) {
         int prev_size = coefs.length;
@@ -70,12 +74,10 @@ public class IterativeSiedelAlgorithm {
 
         if (!sc.hasNextDouble()) return;
         precision = sc.nextDouble();
-        System.out.println("Matrix:");
-        print_matrix(coefs);
+
 //        System.out.println("\nNorm of matrix: " + matrix_norm(coefs));
 //        System.out.println("\nNorm of vector: " + vector_norm(free_terms));
-        equivalent();
-        solve_iterative();
+
     }
 
     public static void print_matrix(Element[] coefs) {
@@ -91,21 +93,22 @@ public class IterativeSiedelAlgorithm {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public static double matrix_norm(Element[] matrix) {
-        double[] total_in_cl = new double[dim];
+        double[] total_in_str = new double[dim];
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                if (matrix[j].cl == i) {
-                    total_in_cl[i] += Math.abs(matrix[j].value);
+                if (matrix[j].str == i) {
+                    total_in_str[i] += Math.abs(matrix[j].value);
                 }
             }
         }
         double max = 0;
         for (int i = 0; i < dim; i++) {
-            if (total_in_cl[i] > max) {
-                max = total_in_cl[i];
+            if (total_in_str[i] > max) {
+                max = total_in_str[i];
             }
         }
         return max;
@@ -121,9 +124,9 @@ public class IterativeSiedelAlgorithm {
         return max;
     }
 
-    public static void equivalent() {
-        beta = new double[dim];
-        alpha = new Element[0];
+    public static void to_equivalent() {
+        beta_iter = new double[dim];
+        alpha_iter = new Element[0];
         int cnt = 0;
         double tmp;
         double[] diag = new double[dim];
@@ -141,20 +144,15 @@ public class IterativeSiedelAlgorithm {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (i == j) {
-                    beta[i] = free_terms[i] / diag[i];
+                    beta_iter[i] = free_terms[i] / diag[i];
                 }
                 if (cnt < coefs.length && coefs[cnt].str == i && coefs[cnt].cl == j) {
                     tmp = coefs[cnt++].value / diag[i];
-                    if (i != j && tmp != 0.0) alpha = append(alpha, -tmp, i, j);
+                    if (i != j && tmp != 0.0) alpha_iter = append(alpha_iter, -tmp, i, j);
                 }
             }
         }
-        System.out.println("\nBeta:");
-        for (int i = 0; i < dim; i++) {
-            System.out.print("" + beta[i] + " ");
-        }
-        System.out.println("\n\nAlpha:");
-        print_matrix(alpha);
+
     }
 
     public static double[] multiply(Element[] coefs, double[] vect) {
@@ -170,31 +168,128 @@ public class IterativeSiedelAlgorithm {
         return res;
     }
 
-    public static void solve_iterative() {
-        solving = new double[dim];
-        System.arraycopy(beta, 0, solving,0, dim);
-        double eps = (vector_norm(solving) * matrix_norm(alpha)) / (1 - matrix_norm(alpha));
+    public static int solve_iterative() {
+        solving_iter = new double[dim];
+        System.arraycopy(beta_iter, 0, solving_iter,0, dim);
+        double eps = precision + 1;
+        int cnt_iter = 0;
         while (eps > precision) {
-            double[] tmp = multiply(alpha, solving);
+            double[] tmp = multiply(alpha_iter, solving_iter);
             for (int i = 0; i < dim; i++) {
-                tmp[i] += beta[i];
+                tmp[i] += beta_iter[i];
             }
+
+            /*System.out.println("\nbeta + alpha * x:");
+            for (int i = 0; i < dim; i++) {
+                System.out.print("" + tmp[i] + " ");
+            }
+            System.out.println();*/
+
             double[] diff = new double[dim];
             for (int i = 0; i < dim; i++) {
-                diff[i] = tmp[i] - solving[i];
+                diff[i] = tmp[i] - solving_iter[i];
             }
+
             /*System.out.println("diff:");
             for (int i = 0; i < dim; i++) {
                 System.out.print("" + diff[i] + " ");
-            }*/
-            eps = (vector_norm(diff) * matrix_norm(alpha)) / (1 - matrix_norm(alpha));
-            System.arraycopy(tmp, 0, solving,0, dim);
-            //System.out.println("eps diff: " + eps);
-        }
+            }
+            System.out.println();*/
 
+            eps = (vector_norm(diff) * matrix_norm(alpha_iter)) / (1 - matrix_norm(alpha_iter));
+//            System.out.println("Norm diff: " + vector_norm(diff));
+//            System.out.println("Norm alpha: " + matrix_norm(alpha_iter));
+//            System.out.println("eps diff: " + eps);
+            System.arraycopy(tmp, 0, solving_iter,0, dim);
+            cnt_iter++;
+        }
+        //System.out.println("Iterations: " + cnt_iter);
+        return cnt_iter;
+    }
+
+    public static int siedel() {
+        solving_siedel = new double[dim];
+        double[] prev = new double[dim];
+        System.arraycopy(beta_iter, 0, prev, 0, dim);
+        double[] cur = new double[dim];
+        int cnt;
+        double eps = vector_norm(prev);
+        int cnt_siedel = 0;
+        while (eps > precision) {
+            cnt = 0;
+            for (int i = 0; i < dim; i++) {
+                cur[i] = beta_iter[i];
+                for (int j = 0; j < dim; j++) {
+                    /*System.out.println("i: " + i + " j: " + j);
+                    System.out.println("Prev:");
+                    for (int k = 0; k < dim; k++) {
+                        System.out.print("" + prev[k] + " ");
+                    }
+                    System.out.println();
+
+                    System.out.println("Cur:");
+                    for (int k = 0; k < dim; k++) {
+                        System.out.print("" + cur[k] + " ");
+                    }
+                    System.out.println();*/
+
+                    double mult = 0.0;
+                    if (cnt < alpha_iter.length && alpha_iter[cnt].str == i && alpha_iter[cnt].cl == j) {
+                        mult = alpha_iter[cnt++].value;
+                    }
+                    if (mult == 0.0) {
+                        continue;
+                    }
+                    if (j < i) {
+                        cur[i] += mult * cur[j];
+                    } else {
+                        cur[i] += mult * prev[j];
+                    }
+                }
+            }
+            double[] diff = new double[dim];
+            double norm = 0;
+            for (int i = 0; i < dim; i++) {
+                diff[i] = cur[i] - prev[i];
+                norm += diff[i] * diff[i];
+            }
+            eps = Math.sqrt(norm);
+            System.arraycopy(cur, 0, prev, 0, dim);
+            cnt_siedel++;
+        }
+        System.arraycopy(prev, 0, solving_siedel, 0, dim);
+
+        //System.out.println("\nSiedel, iterations: " + cnt_siedel);
+        return cnt_siedel;
+    }
+
+    public static void lab1_n8_1_3() {
+        System.out.println("Matrix:");
+        print_matrix(coefs);
+        System.out.println("Free terms:");
+        for (int i = 0; i < dim; i++) {
+            System.out.print("" + free_terms[i] + " ");
+        }
+        System.out.println();
+        to_equivalent();
+        System.out.println("\nAlpha:");
+        print_matrix(alpha_iter);
+        System.out.println("Beta:");
+        for (int i = 0; i < dim; i++) {
+            System.out.print("" + beta_iter[i] + " ");
+        }
+        System.out.println();
+        int iter_cnt  = solve_iterative();
         System.out.println("\nSolving iterative:");
         for (int i = 0; i < dim; i++) {
-            System.out.print("" + solving[i] + " ");
+            System.out.print("" + solving_iter[i] + " ");
         }
+        System.out.println("\nIterations: " + iter_cnt);
+        int siedel_cnt = siedel();
+        System.out.println("\nSolving Siedel:");
+        for (int i = 0; i < dim; i++) {
+            System.out.print("" + solving_siedel[i] + " ");
+        }
+        System.out.println("\nIterations: " + siedel_cnt);
     }
 }
