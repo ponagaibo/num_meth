@@ -28,10 +28,17 @@ public class Main {
         trid.lab1_n8_1_2();
         */
 
+        /*
         // Item 1.3
         IterativeSiedelAlgorithm itAlg = new IterativeSiedelAlgorithm();
         itAlg.readData(".//src//main//java//lab1//l1.3.txt");
         //itAlg.readData(".//src//main//java//lab1//test.txt");
         itAlg.lab1_n8_1_3();
+        */
+
+        // Item 1.4
+        RotationAlgorithm rotAlg = new RotationAlgorithm();
+        rotAlg.readData(".//src//main//java//lab1//test.txt");
+        rotAlg.calculate();
     }
 }

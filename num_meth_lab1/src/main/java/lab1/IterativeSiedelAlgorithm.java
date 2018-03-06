@@ -21,13 +21,13 @@ public class IterativeSiedelAlgorithm {
 
     static double precision;
     static double[] free_terms;
-    static double[] beta_iter;
+    static double[] beta;
 
     static double[] solving_iter;
     static double[] solving_siedel;
 
     static Element[] coefs;
-    static Element[] alpha_iter;
+    static Element[] alpha;
 
     public static Element[] append(Element[] coefs, double v, int s, int c) {
         int prev_size = coefs.length;
@@ -107,8 +107,8 @@ public class IterativeSiedelAlgorithm {
     }
 
     public static void to_equivalent() {
-        beta_iter = new double[dim];
-        alpha_iter = new Element[0];
+        beta = new double[dim];
+        alpha = new Element[0];
         int cnt = 0;
         double tmp;
         double[] diag = new double[dim];
@@ -121,11 +121,11 @@ public class IterativeSiedelAlgorithm {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (i == j) {
-                    beta_iter[i] = free_terms[i] / diag[i];
+                    beta[i] = free_terms[i] / diag[i];
                 }
                 if (cnt < coefs.length && coefs[cnt].str == i && coefs[cnt].cl == j) {
                     tmp = coefs[cnt++].value / diag[i];
-                    if (i != j && tmp != 0.0) alpha_iter = append(alpha_iter, -tmp, i, j);
+                    if (i != j && tmp != 0.0) alpha = append(alpha, -tmp, i, j);
                 }
             }
         }
@@ -146,19 +146,19 @@ public class IterativeSiedelAlgorithm {
 
     public static int solve_iterative() {
         solving_iter = new double[dim];
-        System.arraycopy(beta_iter, 0, solving_iter,0, dim);
+        System.arraycopy(beta, 0, solving_iter,0, dim);
         double eps = precision + 1;
         int cnt_iter = 0;
         while (eps > precision) {
-            double[] tmp = multiply(alpha_iter, solving_iter);
+            double[] tmp = multiply(alpha, solving_iter);
             for (int i = 0; i < dim; i++) {
-                tmp[i] += beta_iter[i];
+                tmp[i] += beta[i];
             }
             double[] diff = new double[dim];
             for (int i = 0; i < dim; i++) {
                 diff[i] = tmp[i] - solving_iter[i];
             }
-            eps = (vector_norm(diff) * matrix_norm(alpha_iter)) / (1 - matrix_norm(alpha_iter));
+            eps = (vector_norm(diff) * matrix_norm(alpha)) / (1 - matrix_norm(alpha));
             System.arraycopy(tmp, 0, solving_iter,0, dim);
             cnt_iter++;
         }
@@ -168,7 +168,7 @@ public class IterativeSiedelAlgorithm {
     public static int siedel() {
         solving_siedel = new double[dim];
         double[] prev = new double[dim];
-        System.arraycopy(beta_iter, 0, prev, 0, dim);
+        System.arraycopy(beta, 0, prev, 0, dim);
         double[] cur = new double[dim];
         int cnt;
         double eps = vector_norm(prev);
@@ -176,11 +176,11 @@ public class IterativeSiedelAlgorithm {
         while (eps > precision) {
             cnt = 0;
             for (int i = 0; i < dim; i++) {
-                cur[i] = beta_iter[i];
+                cur[i] = beta[i];
                 for (int j = 0; j < dim; j++) {
                     double mult = 0.0;
-                    if (cnt < alpha_iter.length && alpha_iter[cnt].str == i && alpha_iter[cnt].cl == j) {
-                        mult = alpha_iter[cnt++].value;
+                    if (cnt < alpha.length && alpha[cnt].str == i && alpha[cnt].cl == j) {
+                        mult = alpha[cnt++].value;
                     }
                     if (mult == 0.0) {
                         continue;
@@ -216,10 +216,10 @@ public class IterativeSiedelAlgorithm {
         System.out.println();
         to_equivalent();
         System.out.println("\nAlpha:");
-        print_matrix(alpha_iter);
+        print_matrix(alpha);
         System.out.println("Beta:");
         for (int i = 0; i < dim; i++) {
-            System.out.print("" + beta_iter[i] + " ");
+            System.out.print("" + beta[i] + " ");
         }
         System.out.println();
         int iter_cnt  = solve_iterative();
