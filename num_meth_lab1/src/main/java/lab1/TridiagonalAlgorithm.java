@@ -15,10 +15,9 @@ public class TridiagonalAlgorithm {
 
     private static double[] solving;
 
-    static int dim;
+    private static int dim;
 
-    public static void print_matrix() {
-        System.out.println("Matrix:");
+    private static void print_matrix() {
         int a_cnt = 0;
         int b_cnt = 0;
         int c_cnt = 0;
@@ -90,7 +89,7 @@ public class TridiagonalAlgorithm {
         }
     }
 
-    public static void algo() {
+    private static void algo() {
         p_coef = new double[dim];
         q_coef = new double[dim];
         p_coef[0] = -c_terms[0] / b_terms[0];
@@ -112,6 +111,8 @@ public class TridiagonalAlgorithm {
     }
 
     public static void lab1_n8_1_2() {
+        System.out.println("\n~~~ Tridiagonal algorithm ~~~");
+        System.out.println("\nOriginal matrix:");
         print_matrix();
         algo();
         System.out.println("\nP:");
@@ -126,5 +127,7 @@ public class TridiagonalAlgorithm {
         for (int i = 0; i < dim; i++) {
             System.out.print("" + solving[i] + " ");
         }
+        System.out.println();
+        System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 }

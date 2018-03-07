@@ -15,34 +15,17 @@ public class LU_Algorithm {
                                            {0, 1, 0, 0},
                                            {0, 0, 1, 0},
                                            {0, 0, 0, 1} };
-    static int dim;
+    private static int dim;
 
     public LU_Algorithm(int n, double[][] matr, double[] b) {
         dim = n;
         A_matrix = matr;
         L_matrix = new double[n][n];
         U_matrix = new double[n][n];
-        this.b = b;
+        LU_Algorithm.b = b;
     }
 
-    public static double[][] multiply(double[][] A, double[][] B) {
-        double[][] C = new double[dim][dim];
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                C[i][j] = 0.0;
-            }
-        }
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                for (int k = 0; k < dim; k++) {
-                    C[i][j] += A[i][k] * B[k][j];
-                }
-            }
-        }
-        return C;
-    }
-
-    public static void decompose() {
+    private static void decompose() {
         double[][] tmpL = new double[dim][dim];
         double[][] tmpA = new double[dim][dim];
         double[][] originalA = new double[dim][dim];
@@ -67,7 +50,7 @@ public class LU_Algorithm {
                 }
             }
             if (pos != i) {
-                flag = !(flag & true);
+                flag = !flag;
             }
             int c = p[i];
             p[i] = p[pos];
@@ -97,7 +80,7 @@ public class LU_Algorithm {
     }
 
 
-    public static double[] solve(double[] column) {
+    private static double[] solve(double[] column) {
         double[] tmp = new double[dim];
         System.arraycopy(column, 0, tmp, 0, dim);
         for (int i = 0; i < dim - 1; i++) {
@@ -114,7 +97,7 @@ public class LU_Algorithm {
         return tmp;
     }
 
-    public static double[][] inverse_matrix() {
+    private static double[][] inverse_matrix() {
         double[][] inverse_m = new double[dim][dim];
         for (int j = 0; j < dim; j++) {
             double[] tmp = solve(E_matrix[j]);
@@ -125,7 +108,7 @@ public class LU_Algorithm {
         return inverse_m;
     }
 
-    public static double determinant() {
+    private static double determinant() {
         double res = 1;
         for (int i = 0; i < dim; i++) {
             res *= U_matrix[i][i];
@@ -133,27 +116,16 @@ public class LU_Algorithm {
         return res * sign;
     }
 
-    public static void print_matrix(double[][] matrix) {
-        for (int i = 0; i < dim; i++) {
-            for (int j = 0; j < dim; j++) {
-                double tmp = matrix[i][j] * 100000;
-                int tmp1 = (int)tmp;
-                tmp = tmp1 / 100000.0;
-                System.out.print("" + tmp + " ");
-            }
-            System.out.println();
-        }
-    }
-
     public static void lab1_n8_1_1() {
         // Item 1.1
+        System.out.println("\n~~~ LU algorithm ~~~");
         decompose();
         System.out.println("\nMatrix A:");
-        print_matrix(A_matrix);
+        MatrixOperations.print_matrix(A_matrix);
         System.out.println("\nMatrix L:");
-        print_matrix(L_matrix);
+        MatrixOperations.print_matrix(L_matrix);
         System.out.println("\nMatrix U:");
-        print_matrix(U_matrix);
+        MatrixOperations.print_matrix(U_matrix);
         System.out.println("\nDeterminant = " + determinant());
         double[] solving = solve(b);
         System.out.println("\nSolving by LU:");
@@ -165,10 +137,11 @@ public class LU_Algorithm {
         }
         double[][] inverse_m = inverse_matrix();
         System.out.println("\n\nInverse matrix:");
-        print_matrix(inverse_m);
-        double[][] obr = multiply(A_matrix, inverse_m);
+        MatrixOperations.print_matrix(inverse_m);
+        double[][] obr = MatrixOperations.multiply(A_matrix, inverse_m);
         System.out.println("\nA * A^-1:");
-        print_matrix(obr);
+        MatrixOperations.print_matrix(obr);
+        System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 
     public static void readData(String inFile) throws FileNotFoundException {
@@ -190,7 +163,6 @@ public class LU_Algorithm {
             for (int j = 0; j < dim; j++) {
                 A_matrix[i][j] = elem[cnt++];
             }
-            System.out.println();
         }
         for (int i = 0; i < dim; i++) {
             b[i] = elem[cnt++];
