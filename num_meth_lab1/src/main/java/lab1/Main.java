@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
+/*
 
         // Item 1.1.
         LU_Algorithm.readData("l1.1.txt");
@@ -24,6 +25,10 @@ public class Main {
         RotationAlgorithm.readData("l1.4.txt");
         RotationAlgorithm.lab1_n8_1_4();
 
+*/
 
+        // Item 1.5
+        QR_Algorithm.readData("test.txt");
+        QR_Algorithm.decompose();
     }
 }
