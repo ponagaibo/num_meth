@@ -4,20 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class TridiagonalAlgorithm {
-    private static double[] a_terms;
-    private static double[] b_terms;
-    private static double[] c_terms;
-    private static double[] d_terms;
+class TridiagonalAlgorithm {
+    private double[] a_terms;
+    private double[] b_terms;
+    private double[] c_terms;
+    private double[] d_terms;
 
-    private static double[] p_coef;
-    private static double[] q_coef;
+    private double[] p_coef;
+    private double[] q_coef;
 
-    private static double[] solving;
+    private double[] solving;
 
-    private static int dim;
+    private int dim;
 
-    private static void print_matrix() {
+    private void print_matrix() {
         int a_cnt = 0;
         int b_cnt = 0;
         int c_cnt = 0;
@@ -42,8 +42,8 @@ public class TridiagonalAlgorithm {
         for (int j = 0; j < dim - 2; j++) {
             System.out.print("0.0 ");
         }
-        System.out.print("" + a_terms[a_cnt++] + " ");
-        System.out.print("" + b_terms[b_cnt++] + " ");
+        System.out.print("" + a_terms[a_cnt] + " ");
+        System.out.print("" + b_terms[b_cnt] + " ");
         System.out.println();
         System.out.println("\nFree terms:");
         for (int i = 0; i < dim; i++) {
@@ -52,7 +52,7 @@ public class TridiagonalAlgorithm {
         System.out.println();
     }
 
-    public static void readData(String inFile) throws FileNotFoundException {
+    void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile);
         if (!sc.hasNextInt()) return;
@@ -79,9 +79,9 @@ public class TridiagonalAlgorithm {
 
         }
         if (!sc.hasNextDouble()) return;
-        a_terms[a_cnt++] = sc.nextDouble();
+        a_terms[a_cnt] = sc.nextDouble();
         if (!sc.hasNextDouble()) return;
-        b_terms[b_cnt++] = sc.nextDouble();
+        b_terms[b_cnt] = sc.nextDouble();
 
         for (int i = 0; i < dim; i++) {
             if (!sc.hasNextDouble()) return;
@@ -89,7 +89,7 @@ public class TridiagonalAlgorithm {
         }
     }
 
-    private static void algo() {
+    private void algo() {
         p_coef = new double[dim];
         q_coef = new double[dim];
         p_coef[0] = -c_terms[0] / b_terms[0];
@@ -110,7 +110,7 @@ public class TridiagonalAlgorithm {
         }
     }
 
-    public static void lab1_n8_1_2() {
+    void lab1_n8_1_2() {
         System.out.println("\n~~~ Tridiagonal algorithm ~~~");
         System.out.println("\nOriginal matrix:");
         print_matrix();

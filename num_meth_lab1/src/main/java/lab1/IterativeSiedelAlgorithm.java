@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class IterativeSiedelAlgorithm {
-    private static class Element {
+class IterativeSiedelAlgorithm {
+    private class Element {
         double value;
         int str;
         int cl;
@@ -16,17 +16,17 @@ public class IterativeSiedelAlgorithm {
         }
     }
 
-    private static int dim;
-    private static double precision;
-    private static double[] free_terms;
-    private static double[] beta;
-    private static double[] solving_iter;
-    private static double[] solving_siedel;
+    private int dim;
+    private double precision;
+    private double[] free_terms;
+    private double[] beta;
+    private double[] solving_iter;
+    private double[] solving_siedel;
 
-    private static Element[] coefs;
-    private static Element[] alpha;
+    private Element[] coefs;
+    private Element[] alpha;
 
-    private static Element[] append(Element[] coefs, double v, int s, int c) {
+    private Element[] append(Element[] coefs, double v, int s, int c) {
         int prev_size = coefs.length;
         Element[] res = new Element[prev_size + 1];
         System.arraycopy(coefs, 0, res, 0, prev_size);
@@ -34,7 +34,7 @@ public class IterativeSiedelAlgorithm {
         return res;
     }
 
-    public static void readData(String inFile) throws FileNotFoundException {
+    void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile);
         if (!sc.hasNextInt()) return;
@@ -58,7 +58,7 @@ public class IterativeSiedelAlgorithm {
         precision = sc.nextDouble();
     }
 
-    private static void print_matrix(Element[] coefs) {
+    private void print_matrix(Element[] coefs) {
         int cnt = 0;
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
@@ -72,7 +72,7 @@ public class IterativeSiedelAlgorithm {
         }
     }
 
-    private static double matrix_norm(Element[] matrix) {
+    private double matrix_norm(Element[] matrix) {
         double[] total_in_str = new double[dim];
         for (int i = 0; i < dim; i++) {
             for (Element aMatrix : matrix) {
@@ -90,7 +90,7 @@ public class IterativeSiedelAlgorithm {
         return max;
     }
 
-    private static double vector_norm(double[] vect) {
+    private double vector_norm(double[] vect) {
         double max = 0;
         for (int i = 0; i < dim; i++) {
             if (Math.abs(vect[i]) > max) {
@@ -100,7 +100,7 @@ public class IterativeSiedelAlgorithm {
         return max;
     }
 
-    private static void to_equivalent() {
+    private void to_equivalent() {
         beta = new double[dim];
         alpha = new Element[0];
         int cnt = 0;
@@ -125,7 +125,7 @@ public class IterativeSiedelAlgorithm {
         }
     }
 
-    private static double[] multiply(Element[] coefs, double[] vect) {
+    private double[] multiply(Element[] coefs, double[] vect) {
         double[] res = new double[dim];
         int cnt = 0;
         for (int i = 0; i < dim; i++) {
@@ -138,7 +138,7 @@ public class IterativeSiedelAlgorithm {
         return res;
     }
 
-    private static int solve_iterative() {
+    private int solve_iterative() {
         solving_iter = new double[dim];
         System.arraycopy(beta, 0, solving_iter,0, dim);
         double eps = precision + 1;
@@ -159,7 +159,7 @@ public class IterativeSiedelAlgorithm {
         return cnt_iter;
     }
 
-    private static int siedel() {
+    private int siedel() {
         solving_siedel = new double[dim];
         double[] prev = new double[dim];
         System.arraycopy(beta, 0, prev, 0, dim);
@@ -215,7 +215,7 @@ public class IterativeSiedelAlgorithm {
         return cnt_siedel;
     }
 
-    public static void lab1_n8_1_3() {
+    void lab1_n8_1_3() {
         System.out.println("\n~~~ Siedel algorithm ~~~");
         System.out.println("\nOriginal matrix:");
         print_matrix(coefs);

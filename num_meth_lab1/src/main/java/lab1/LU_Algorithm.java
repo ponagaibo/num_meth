@@ -4,28 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class LU_Algorithm {
-    private static double[][] L_matrix;
-    private static double[][] U_matrix;
-    private static double[][] A_matrix;
-    private static double[] b;
-    private static int sign;
+class LU_Algorithm {
+    private double[][] L_matrix;
+    private double[][] U_matrix;
+    private double[][] A_matrix;
+    private double[] b;
+    private int sign;
 
-    private static double[][] E_matrix = { {1, 0, 0, 0},
+    private double[][] E_matrix = { {1, 0, 0, 0},
                                            {0, 1, 0, 0},
                                            {0, 0, 1, 0},
                                            {0, 0, 0, 1} };
-    private static int dim;
+    private int dim;
 
-    public LU_Algorithm(int n, double[][] matr, double[] b) {
-        dim = n;
-        A_matrix = matr;
-        L_matrix = new double[n][n];
-        U_matrix = new double[n][n];
-        LU_Algorithm.b = b;
-    }
-
-    private static void decompose() {
+    private void decompose() {
         double[][] tmpL = new double[dim][dim];
         double[][] tmpA = new double[dim][dim];
         double[][] originalA = new double[dim][dim];
@@ -80,7 +72,7 @@ public class LU_Algorithm {
     }
 
 
-    private static double[] solve(double[] column) {
+    private double[] solve(double[] column) {
         double[] tmp = new double[dim];
         System.arraycopy(column, 0, tmp, 0, dim);
         for (int i = 0; i < dim - 1; i++) {
@@ -97,7 +89,7 @@ public class LU_Algorithm {
         return tmp;
     }
 
-    private static double[][] inverse_matrix() {
+    private double[][] inverse_matrix() {
         double[][] inverse_m = new double[dim][dim];
         for (int j = 0; j < dim; j++) {
             double[] tmp = solve(E_matrix[j]);
@@ -108,7 +100,7 @@ public class LU_Algorithm {
         return inverse_m;
     }
 
-    private static double determinant() {
+    private double determinant() {
         double res = 1;
         for (int i = 0; i < dim; i++) {
             res *= U_matrix[i][i];
@@ -116,7 +108,7 @@ public class LU_Algorithm {
         return res * sign;
     }
 
-    public static void lab1_n8_1_1() {
+    void lab1_n8_1_1() {
         // Item 1.1
         System.out.println("\n~~~ LU algorithm ~~~");
         decompose();
@@ -144,7 +136,7 @@ public class LU_Algorithm {
         System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 
-    public static void readData(String inFile) throws FileNotFoundException {
+    void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile);
         int cnt = 0;

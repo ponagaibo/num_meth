@@ -4,14 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class RotationAlgorithm {
-    private static int dim;
-    private static double precision;
-    private static double[][] original;
-    private static double[] eigenvalues;
-    private static double[][] eigenvectors;
+class RotationAlgorithm {
+    private int dim;
+    private double precision;
+    private double[][] original;
+    private double[] eigenvalues;
+    private double[][] eigenvectors;
 
-    public static void readData(String inFile) throws FileNotFoundException {
+    void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile);
         if (!sc.hasNextInt()) return;
@@ -27,7 +27,7 @@ public class RotationAlgorithm {
         precision = sc.nextDouble();
     }
 
-    private static double[][] buildRotationMatrix(int pos_i, int pos_j, double phi) {
+    private double[][] buildRotationMatrix(int pos_i, int pos_j, double phi) {
         double[][] rotationMatrix = MatrixOperations.identityMatrix(dim);
         rotationMatrix[pos_i][pos_i] = Math.cos(phi);
         rotationMatrix[pos_j][pos_j] = Math.cos(phi);
@@ -36,7 +36,7 @@ public class RotationAlgorithm {
         return rotationMatrix;
     }
 
-    private static void calculate() {
+    private void calculate() {
         double[][] a_matr = new double[dim][dim];
         double[][] rot;
         eigenvectors = MatrixOperations.identityMatrix(dim);
@@ -90,11 +90,11 @@ public class RotationAlgorithm {
         }
     }
 
-    public static void lab1_n8_1_4() {
+    void lab1_n8_1_4() {
         System.out.println("\n~~~ Rotation algorithm ~~~");
-        calculate();
         System.out.println("\nOriginal matrix:");
         MatrixOperations.print_matrix(original);
+        calculate();
         System.out.println("\nEigenalues:");
         for (int i = 0; i < dim; i++) {
             System.out.print("" + eigenvalues[i] + " ");
