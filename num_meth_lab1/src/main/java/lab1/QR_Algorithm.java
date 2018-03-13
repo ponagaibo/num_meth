@@ -130,11 +130,51 @@ class QR_Algorithm {
 
     }
 
+    private ComplexNumber[] solve_quadratic(double a, double b, double c, double d) {
+        double discriminant = (a + b) * (a + b) - 4 * (a * b - c * d);
+        System.out.println("\nD: " + discriminant);
+        if (discriminant < 0) {
+            ComplexNumber x1 = new ComplexNumber((a + b) / 2, Math.sqrt(-discriminant) / 2);
+            ComplexNumber x2 = new ComplexNumber((a + b) / 2, -Math.sqrt(-discriminant) / 2);
+            ComplexNumber[] res = new ComplexNumber[2];
+            res[0] = x1;
+            res[1] = x2;
+            return res;
+        } else if (discriminant > 0) {
+            ComplexNumber x1 = new ComplexNumber((a + b + Math.sqrt(discriminant)) / 2, 0);
+            ComplexNumber x2 = new ComplexNumber((a + b - Math.sqrt(discriminant)) / 2, 0);
+            ComplexNumber[] res = new ComplexNumber[2];
+            res[0] = x1;
+            res[1] = x2;
+            return res;
+        } else {
+            ComplexNumber[] res = new ComplexNumber[1];
+            ComplexNumber x = new ComplexNumber((a + b) / 2, 0);
+            res[0] = x;
+            return res;
+        }
+    }
+
     void lab1_n8_1_5() {
         System.out.println("\n~~~ QR algorithm ~~~");
         System.out.println("\nOriginal matrix:");
         MatrixOperations.print_matrix(original);
         solve();
+        System.out.println("\nComplex:");
+        ComplexNumber[] res1 = solve_quadratic(-2.01, -1.33, -2.58, 0.98);
+        for (ComplexNumber aRes1 : res1) {
+            aRes1.print_complex_number();
+        }
+        System.out.println("\nDouble:");
+        ComplexNumber[] res2 = solve_quadratic(2, 6, 1, 3);
+        for (ComplexNumber aRes2 : res2) {
+            aRes2.print_complex_number();
+        }
+        System.out.println("\nExclusive:");
+        ComplexNumber[] res3 = solve_quadratic(5, 5, 0, 1);
+        for (ComplexNumber aRes3 : res3) {
+            aRes3.print_complex_number();
+        }
         System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 }
