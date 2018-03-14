@@ -9,19 +9,11 @@ class ComplexNumber {
         Im = im;
     }
 
-    public void setRe(double re) {
-        Re = re;
-    }
-
-    public void setIm(double im) {
-        Im = im;
-    }
-
-    public double getRe() {
+    private double getRe() {
         return Re;
     }
 
-    public double getIm() {
+    private double getIm() {
         return Im;
     }
 
@@ -34,5 +26,17 @@ class ComplexNumber {
             str += "" + Im + "i";
         }
         System.out.println(str);
+    }
+
+    static double diff(ComplexNumber prev, ComplexNumber cur) {
+        return Math.abs(cur.getRe() - prev.getRe() + cur.getIm() - prev.getIm());
+    }
+
+    @Override
+    public String toString() {
+        return "ComplexNumber{" +
+                "Re=" + Re +
+                ", Im=" + Im +
+                '}';
     }
 }

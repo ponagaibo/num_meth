@@ -7,6 +7,7 @@ import java.util.Scanner;
 class QR_Algorithm {
     private int dim;
     private double precision;
+    private ComplexNumber[] solving;
     private double[][] original;
     private double[][] Q_matrix;
     private double[][] R_matrix;
@@ -77,7 +78,7 @@ class QR_Algorithm {
         }
         for (int i = 0; i < dim - 1; i++) {
             double[] v = new double[dim];
-            for (int j = i ; j < dim; j++) {
+            for (int j = i; j < dim; j++) {
                 if (i == j) {
                     double tmp = vector_norm(MatrixOperations.transpose(A_tmp)[j], j);
                     v[j] = A_tmp[j][j] + my_sign(A_tmp[j][j]) * tmp;
@@ -85,54 +86,80 @@ class QR_Algorithm {
                     v[j] = A_tmp[j][i];
                 }
             }
-
             double coef = transposed_x_vector(v);
             for (int ii = 0; ii < dim; ii++) {
                 for (int jj = 0; jj < dim; jj++) {
                     H_tmp[ii][jj] = E[ii][jj] - 2 * vector_x_transposed(v)[ii][jj] / coef;
                 }
             }
-//            System.out.println("\nH matrix");
-//            MatrixOperations.print_matrix(H_tmp);
             Q_matrix = MatrixOperations.multiply(Q_matrix, H_tmp);
             A_tmp = MatrixOperations.multiply(H_tmp, A_tmp);
-//            System.out.println("\nNew a matrix");
-//            MatrixOperations.print_matrix(A_tmp);
         }
-
         for (int i = 0; i < dim; i++) {
             System.arraycopy(A_tmp[i], 0, R_matrix[i], 0, dim);
         }
-
-
     }
 
-    private void solve() {
+    private double[][] solve() {
         double[][] cur_A = new double[dim][dim];
+        solving = new ComplexNumber[dim];
         for (int i = 0; i < dim; i++) {
             System.arraycopy(original[i], 0, cur_A[i], 0, dim);
         }
-        double eps = 6;
-        while (eps > precision) {
+        int roots_cnt;
+        int cur_pos;
+        boolean found_roots = false;
+        label: while (true) {
             decompose(cur_A);
-
-//            System.out.println("\nQ matrix");
-//            MatrixOperations.print_matrix(Q_matrix);
-//            System.out.println("\nR matrix");
-//            MatrixOperations.print_matrix(R_matrix);
-//            double[][] res = MatrixOperations.multiply(Q_matrix, R_matrix);
-//            System.out.println("\nres matrix");
-//            MatrixOperations.print_matrix(res);
-
             cur_A = MatrixOperations.multiply(R_matrix, Q_matrix);
-            eps--;
+            ComplexNumber[] tmp_solving = new ComplexNumber[dim];
+            for (int i = 0; i < dim; i++) {
+                tmp_solving[i] = new ComplexNumber(0, 0);
+            }
+            cur_pos = 0;
+            roots_cnt = 0;
+            while (cur_pos < dim) {
+                if (vector_norm(MatrixOperations.transpose(cur_A)[cur_pos], cur_pos + 1) < precision) {
+                    tmp_solving[cur_pos] = new ComplexNumber(cur_A[cur_pos][cur_pos], 0);
+                    roots_cnt++;
+                    cur_pos++;
+                } else if (vector_norm(MatrixOperations.transpose(cur_A)[cur_pos], cur_pos + 2) < precision) {
+                    ComplexNumber[] roots = solve_quadratic(
+                            cur_A[cur_pos][cur_pos],
+                            cur_A[cur_pos + 1][cur_pos + 1],
+                            cur_A[cur_pos][cur_pos + 1],
+                            cur_A[cur_pos + 1][cur_pos]);
+                    tmp_solving[cur_pos++] = roots[0];
+                    tmp_solving[cur_pos++] = roots[1];
+                    roots_cnt += 2;
+                } else {
+                    continue label;
+                }
+            }
+            if (roots_cnt == dim) {
+                if (!found_roots) {
+                    found_roots = true;
+                    System.arraycopy(tmp_solving, 0, solving, 0, dim);
+                } else {
+                    boolean found = true;
+                    for (int i = 0; i < dim; i++) {
+                        if (ComplexNumber.diff(solving[i], tmp_solving[i]) > precision) {
+                            found = false;
+                        }
+                    }
+                    if (found) {
+                        break;
+                    } else {
+                        System.arraycopy(tmp_solving, 0, solving, 0, dim);
+                    }
+                }
+            }
         }
-
+        return cur_A;
     }
 
     private ComplexNumber[] solve_quadratic(double a, double b, double c, double d) {
         double discriminant = (a + b) * (a + b) - 4 * (a * b - c * d);
-        System.out.println("\nD: " + discriminant);
         if (discriminant < 0) {
             ComplexNumber x1 = new ComplexNumber((a + b) / 2, Math.sqrt(-discriminant) / 2);
             ComplexNumber x2 = new ComplexNumber((a + b) / 2, -Math.sqrt(-discriminant) / 2);
@@ -159,21 +186,12 @@ class QR_Algorithm {
         System.out.println("\n~~~ QR algorithm ~~~");
         System.out.println("\nOriginal matrix:");
         MatrixOperations.print_matrix(original);
-        solve();
-        System.out.println("\nComplex:");
-        ComplexNumber[] res1 = solve_quadratic(-2.01, -1.33, -2.58, 0.98);
-        for (ComplexNumber aRes1 : res1) {
-            aRes1.print_complex_number();
-        }
-        System.out.println("\nDouble:");
-        ComplexNumber[] res2 = solve_quadratic(2, 6, 1, 3);
-        for (ComplexNumber aRes2 : res2) {
-            aRes2.print_complex_number();
-        }
-        System.out.println("\nExclusive:");
-        ComplexNumber[] res3 = solve_quadratic(5, 5, 0, 1);
-        for (ComplexNumber aRes3 : res3) {
-            aRes3.print_complex_number();
+        double[][] m = solve();
+        System.out.println("\nDiagonal matrix:");
+        MatrixOperations.print_matrix(m);
+        System.out.println("\nSolving:");
+        for (ComplexNumber root : solving) {
+            root.print_complex_number();
         }
         System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }

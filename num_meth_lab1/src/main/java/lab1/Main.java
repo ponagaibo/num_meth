@@ -42,7 +42,7 @@ public class Main {
 
         // Item 1.5
         QR_Algorithm alg_qr = new QR_Algorithm();
-        alg_qr.readData("test.txt");
+        alg_qr.readData("l1.5.txt");
         alg_qr.lab1_n8_1_5();
     }
 }
