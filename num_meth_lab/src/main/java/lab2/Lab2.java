@@ -6,10 +6,12 @@ public class Lab2 {
         int n_cnt = NewtonsEquationAlgorithm.findRoot();
         System.out.println("\nRoot: " + NewtonsEquationAlgorithm.root);
         System.out.println("Iterations: " + n_cnt);
+        System.out.println("\n~~~~~~~~~~~~~~~~~~");
         System.out.println("\n~~~ Iteration method for equation ~~~");
         int it_cnt = IterationEquationMethod.findRoot();
         System.out.println("\nRoot: " + IterationEquationMethod.root);
         System.out.println("Iterations: " + it_cnt);
+        System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 
     public static void lab2_n8_2_2() {
@@ -17,5 +19,11 @@ public class Lab2 {
         int n_cnt = NewtonsSystemAlgorithm.findRoots();
         System.out.println("\nRoots: " + NewtonsSystemAlgorithm.x + " " + NewtonsSystemAlgorithm.y);
         System.out.println("Iterations: " + n_cnt);
+        System.out.println("\n~~~~~~~~~~~~~~~~~~");
+        /*
+        double c1 = NewtonsSystemAlgorithm.f1(NewtonsSystemAlgorithm.x, NewtonsSystemAlgorithm.y);
+        double c2 = NewtonsSystemAlgorithm.f2(NewtonsSystemAlgorithm.x, NewtonsSystemAlgorithm.y);
+        System.out.println("check: " + c1 + "  " + c2);
+        */
     }
 }

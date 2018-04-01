@@ -25,27 +25,33 @@ public class NewtonsSystemAlgorithm {
         }
     }
 
-    private static double f1 (double x1, double x2) {
+    public static double f1 (double x1, double x2) {
+        //return 0.1 * x1 * x1 + x1 + 0.2 * x2 * x2 - 0.3;
         return x1 * x1 + x2 * x2 - 9;
     }
 
-    private static double f2 (double x1, double x2) {
+    public static double f2 (double x1, double x2) {
+        //return 0.2 * x1 * x1 + x2 - 0.1 * x1 * x2 - 0.7;
         return x1 - Math.exp(x2) + 3;
     }
 
     private static double df1dx1 (double x1, double x2) {
+        //return 0.2 * x1 + 1;
         return 2 * x1;
     }
 
     private static double df1dx2 (double x1, double x2) {
+        //return 0.4 * x2;
         return 2 * x2;
     }
 
     private static double df2dx1 (double x1, double x2) {
+        //return 0.4 * x1 - 0.1 * x2;
         return 1;
     }
 
     private static double df2dx2 (double x1, double x2) {
+        //return 1 - 0.1 * x1;
         return -Math.exp(x2);
     }
 
@@ -64,8 +70,14 @@ public class NewtonsSystemAlgorithm {
     static int findRoots() {
         double x0 = 2;
         double y0 = 1;
-        x = (2 + 3) / 2;
-        y = (1 + 2) / 2;
+        x = (2 + 3) / 2.;
+        y = (1 + 2) / 2.;
+        /*
+        double x0 = 0;
+        double y0 = 0.5;
+        x = (0 + 0.5) / 2.;
+        y = (0.5 + 1) / 2.;
+        */
         int cnt = 0;
         double eps = norm(x0, y0, x, y); // left bounds
         while (eps > precision) {
@@ -74,6 +86,8 @@ public class NewtonsSystemAlgorithm {
             x = x0 - detA1(x0, y0) / detJ(x0, y0);
             y = y0 - detA2(x0, y0) / detJ(x0, y0);
             cnt++;
+            eps = norm(x0, y0, x, y);
+            if (cnt > 10) break;
         }
         return cnt;
     }

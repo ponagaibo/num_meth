@@ -7,7 +7,7 @@ import java.util.function.DoubleFunction;
 import java.util.function.Function;
 
 public class NewtonsEquationAlgorithm {
-    public static double precision;
+    static double precision;
     static double root;
 
     public static void readData(String inFile) throws FileNotFoundException {
