@@ -20,7 +20,7 @@ public class NewtonsEquationAlgorithm {
     static int findRoot() {
         int cnt = 0;
         double x0 = 0.8;
-        root = (0.8 + 1) / 2;
+        root = x0 - fun.apply(x0) / dfun.apply(x0);
         while (Math.abs(root - x0) > precision) {
             x0 = root;
             root = x0 - fun.apply(x0) / dfun.apply(x0);

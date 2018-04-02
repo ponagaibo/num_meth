@@ -22,8 +22,8 @@ public class IterationEquationMethod {
     static int findRoot() {
         int cnt = 0;
         double q = 0.16;
-        double x0 = 0.8;
-        root = (0.8 + 1) / 2;
+        double x0 = (0.8 + 1) / 2;
+        root = phi.apply(x0);
         double eps = (q * Math.abs(root - x0)) / (1 - q);
         while (eps > precision) {
             x0 = root;

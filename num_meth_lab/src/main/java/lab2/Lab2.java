@@ -25,5 +25,11 @@ public class Lab2 {
         double c2 = NewtonsSystemAlgorithm.f2(NewtonsSystemAlgorithm.x, NewtonsSystemAlgorithm.y);
         System.out.println("check: " + c1 + "  " + c2);
         */
+
+        System.out.println("\n~~~ Iteration method for system ~~~");
+        int it_cnt = IterationSystemMethod.findRoots();
+        System.out.println("\nRoots: " + IterationSystemMethod.x + " " + IterationSystemMethod.y);
+        System.out.println("Iterations: " + it_cnt);
+        System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 }

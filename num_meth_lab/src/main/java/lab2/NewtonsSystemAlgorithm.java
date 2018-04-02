@@ -87,7 +87,6 @@ public class NewtonsSystemAlgorithm {
             y = y0 - detA2(x0, y0) / detJ(x0, y0);
             cnt++;
             eps = norm(x0, y0, x, y);
-            if (cnt > 10) break;
         }
         return cnt;
     }
