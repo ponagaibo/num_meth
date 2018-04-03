@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 public class IterationEquationMethod {
     static double root;
-    static double precision;
+    private static double precision;
 
     private static final Function<Double, Double> phi = (x) ->
             (Math.sqrt((Math.log(x + 1) + 1) / 2));

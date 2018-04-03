@@ -1,7 +1,7 @@
 package lab2;
 
-public class Lab2 {
-    public static void lab2_n8_2_1() {
+class Lab2 {
+    static void lab2_n8_2_1() {
         System.out.println("\n~~~ Newton's method for equation ~~~");
         int n_cnt = NewtonsEquationAlgorithm.findRoot();
         System.out.println("\nRoot: " + NewtonsEquationAlgorithm.root);
@@ -14,7 +14,7 @@ public class Lab2 {
         System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 
-    public static void lab2_n8_2_2() {
+    static void lab2_n8_2_2() {
         System.out.println("\n~~~ Newton's method for system ~~~");
         int n_cnt = NewtonsSystemAlgorithm.findRoots();
         System.out.println("\nRoots: " + NewtonsSystemAlgorithm.x + " " + NewtonsSystemAlgorithm.y);

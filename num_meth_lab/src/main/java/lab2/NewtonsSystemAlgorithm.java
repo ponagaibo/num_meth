@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 public class NewtonsSystemAlgorithm {
     static double x, y;
-    static double precision;
+    private static double precision;
 
     public static void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
@@ -16,7 +16,7 @@ public class NewtonsSystemAlgorithm {
         precision = sc.nextDouble();
     }
 
-    public static double norm (double x0, double y0, double x1, double y1) {
+    private static double norm(double x0, double y0, double x1, double y1) {
         double max = Math.abs(x1 - x0);
         if (Math.abs(y1 - y0) > max) {
             return Math.abs(y1 - y0);
@@ -25,12 +25,12 @@ public class NewtonsSystemAlgorithm {
         }
     }
 
-    public static double f1 (double x1, double x2) {
+    private static double f1(double x1, double x2) {
         //return 0.1 * x1 * x1 + x1 + 0.2 * x2 * x2 - 0.3;
         return x1 * x1 + x2 * x2 - 9;
     }
 
-    public static double f2 (double x1, double x2) {
+    private static double f2(double x1, double x2) {
         //return 0.2 * x1 * x1 + x2 - 0.1 * x1 * x2 - 0.7;
         return x1 - Math.exp(x2) + 3;
     }
