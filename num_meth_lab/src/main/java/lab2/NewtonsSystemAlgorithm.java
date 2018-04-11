@@ -68,10 +68,10 @@ public class NewtonsSystemAlgorithm {
     }
 
     static int findRoots() {
-        double x0 = 2;
-        double y0 = 1;
-        x = (2 + 3) / 2.;
-        y = (1 + 2) / 2.;
+        double x0 = (2 + 3) / 2.;
+        double y0 = (1 + 2) / 2.;
+        x = x0 - detA1(x0, y0) / detJ(x0, y0);
+        y = y0 - detA2(x0, y0) / detJ(x0, y0);
         /*
         double x0 = 0;
         double y0 = 0.5;

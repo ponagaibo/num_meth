@@ -19,8 +19,10 @@ public class NewtonsEquationAlgorithm {
 
     static int findRoot() {
         int cnt = 0;
-        double x0 = 0.8;
+        double x0 = 1.;
         root = x0 - fun.apply(x0) / dfun.apply(x0);
+        //System.out.println("f(a)f(b):" + fun.apply(0.8) * fun.apply(1.));
+        //System.out.println("f(x0)f''(x0):" + fun.apply(x0) * ddfun.apply(x0));
         while (Math.abs(root - x0) > precision) {
             x0 = root;
             root = x0 - fun.apply(x0) / dfun.apply(x0);
@@ -28,6 +30,9 @@ public class NewtonsEquationAlgorithm {
         }
         return cnt;
     }
+
+    private static final DoubleFunction<Double> ddfun = (x) ->
+            ((-1 / ((x + 1) * (x + 1))) - 4);
 
     private static final DoubleFunction<Double> dfun = (x) ->
             (1 / (x + 1) - 4 * x);
