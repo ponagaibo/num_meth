@@ -3,9 +3,8 @@ package lab3;
 import java.util.function.Function;
 
 class LagrangeInterpolation {
-    double[] points;
-
-    Function<Double, Double> func;
+    private double[] points;
+    private Function<Double, Double> func;
 
     LagrangeInterpolation(double[] p, Function<Double, Double> f) {
         points = p;
@@ -15,10 +14,13 @@ class LagrangeInterpolation {
     double interpolation(double x) {
         double sum = 0;
         for (int i = 0; i < points.length; i++) {
-            double tmp = mult(x, points.length) / ((x - points[i]) * mult(points[i], i));
-            sum += func.apply(x) * tmp;
+            double tmp = mult(x, i) / mult(points[i], i);
+            sum += tmp * func.apply(points[i]);
+/*
             System.out.println("i: " + i + " xi: " + points[i] + " fi: " + func.apply(points[i]) +
-                    " w(xi): " + mult(points[i], i));
+                    " w(xi): " + mult(points[i], i) + " fi/w(xi): " + func.apply(points[i]) / mult(points[i], i) +
+                    " X* - xi: " + (x - points[i]));
+*/
         }
         return sum;
     }
