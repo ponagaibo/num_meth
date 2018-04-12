@@ -2,9 +2,10 @@ package lab1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Locale;
 import java.util.Scanner;
 
-class TridiagonalAlgorithm {
+public class TridiagonalAlgorithm {
     private double[] a_terms;
     private double[] b_terms;
     private double[] c_terms;
@@ -13,7 +14,7 @@ class TridiagonalAlgorithm {
     private double[] p_coef;
     private double[] q_coef;
 
-    private double[] solving;
+    protected double[] solving;
 
     private int dim;
 
@@ -52,9 +53,9 @@ class TridiagonalAlgorithm {
         System.out.println();
     }
 
-    void readData(String inFile) throws FileNotFoundException {
+    public void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
-        Scanner sc = new Scanner(inputFile);
+        Scanner sc = new Scanner(inputFile).useLocale(Locale.US);
         if (!sc.hasNextInt()) return;
         dim = sc.nextInt();
         a_terms = new double[dim - 1];
@@ -68,7 +69,6 @@ class TridiagonalAlgorithm {
         b_terms[b_cnt++] = sc.nextDouble();
         if (!sc.hasNextDouble()) return;
         c_terms[c_cnt++] = sc.nextDouble();
-
         for (int i = 0; i < dim - 2; i++) {
             if (!sc.hasNextDouble()) return;
             a_terms[a_cnt++] = sc.nextDouble();
@@ -82,14 +82,13 @@ class TridiagonalAlgorithm {
         a_terms[a_cnt] = sc.nextDouble();
         if (!sc.hasNextDouble()) return;
         b_terms[b_cnt] = sc.nextDouble();
-
         for (int i = 0; i < dim; i++) {
             if (!sc.hasNextDouble()) return;
             d_terms[i] = sc.nextDouble();
         }
     }
 
-    private void algo() {
+    public void algo() {
         p_coef = new double[dim];
         q_coef = new double[dim];
         p_coef[0] = -c_terms[0] / b_terms[0];
@@ -108,6 +107,9 @@ class TridiagonalAlgorithm {
         for (int i = dim - 1; i >= 1; i--) {
             solving[i - 1] = p_coef[i - 1] * solving[i] + q_coef[i - 1];
         }
+    }
+
+    public void getSolving(double[] root)  {
     }
 
     void lab1_n8_1_2() {
