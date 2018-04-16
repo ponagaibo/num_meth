@@ -28,4 +28,9 @@ class Lab3 {
         System.out.println("\nValue in " + myCheckPoint + ": " + CubicSpline.compute(myCheckPoint));
         System.out.println("~~~~~~~~~~~~~~~");
     }
+
+    static void lab3_3() throws FileNotFoundException {
+        OrdinaryLeastSquares ols = new OrdinaryLeastSquares();
+        ols.readData("./src/main/java/lab3/l3.3.txt");
+    }
 }

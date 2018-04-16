@@ -25,10 +25,13 @@ public class Main {
         double exCheckPoint = 1.5;
 */
 
+/*
         double[] my_x = new double[] {-0.4, -0.1, 0.2, 0.5, 0.8};
         double[] my_f = new double[] {-0.41152, -0.10017, 0.20136, 0.52360, 0.92730};
         double myCheckPoint = 0.1;
-        Lab3.lab3_2(my_x, my_f, myCheckPoint);
 
+        Lab3.lab3_2(my_x, my_f, myCheckPoint);
+*/
+        Lab3.lab3_3();
     }
 }
