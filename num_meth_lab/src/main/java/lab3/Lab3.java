@@ -30,7 +30,11 @@ class Lab3 {
     }
 
     static void lab3_3() throws FileNotFoundException {
+        System.out.println("\n~~~ Ordinary Least Squares ~~~");
         OrdinaryLeastSquares ols = new OrdinaryLeastSquares();
         ols.readData("./src/main/java/lab3/l3.3.txt");
+        System.out.println("Error1: " + ols.approximator(1));
+        System.out.println("Error2: " + ols.approximator(2));
+        System.out.println("~~~~~~~~~~~~~~~");
     }
 }

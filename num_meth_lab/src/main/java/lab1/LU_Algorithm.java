@@ -2,14 +2,19 @@ package lab1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Locale;
 import java.util.Scanner;
 
-class LU_Algorithm {
+public class LU_Algorithm {
     private double[][] L_matrix;
     private double[][] U_matrix;
     private double[][] A_matrix;
     private double[] b;
     private int sign;
+
+    public void getB(double[] res) {
+        System.arraycopy(b, 0, res, 0, dim);
+    }
 
     private double[][] E_matrix = { {1, 0, 0, 0},
                                            {0, 1, 0, 0},
@@ -17,7 +22,7 @@ class LU_Algorithm {
                                            {0, 0, 0, 1} };
     private int dim;
 
-    private void decompose() {
+    public void decompose() {
         double[][] tmpL = new double[dim][dim];
         double[][] tmpA = new double[dim][dim];
         double[][] originalA = new double[dim][dim];
@@ -71,8 +76,7 @@ class LU_Algorithm {
         }
     }
 
-
-    private double[] solve(double[] column) {
+    public double[] solve(double[] column) {
         double[] tmp = new double[dim];
         System.arraycopy(column, 0, tmp, 0, dim);
         for (int i = 0; i < dim - 1; i++) {
@@ -136,9 +140,9 @@ class LU_Algorithm {
         System.out.println("\n~~~~~~~~~~~~~~~~~~");
     }
 
-    void readData(String inFile) throws FileNotFoundException {
+    public void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
-        Scanner sc = new Scanner(inputFile);
+        Scanner sc = new Scanner(inputFile).useLocale(Locale.US);
         int cnt = 0;
         if (!sc.hasNextInt()) return;
         dim = sc.nextInt();

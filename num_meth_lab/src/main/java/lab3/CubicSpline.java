@@ -44,7 +44,7 @@ class CubicSpline {
             b[i] = 3 * (((f_i[i + 2] - f_i[i + 1]) / h[i + 2]) - (f_i[i + 1] - f_i[i]) / h[i + 1]);
         }
 
-        String filename = "matrix.txt";
+        String filename = "tridiagonal_matrix_3_2.txt";
         String dir = "./src/main/java/lab3/";
         File file = new File(dir, filename);
         try (FileWriter fw = new FileWriter(file, false)) {
