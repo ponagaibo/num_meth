@@ -89,7 +89,7 @@ class CubicSpline {
         d_i[x_i.length - 1] = -c_i[x_i.length - 1] / (3 * h[x_i.length - 1]);
 
 
-        System.out.println("\na_i:");
+        System.out.println("a_i:");
         for (double anA_i : a_i) {
             System.out.print("" + anA_i + " ");
         }

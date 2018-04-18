@@ -19,7 +19,7 @@ class LagrangeInterpolation {
 /*
             System.out.println("i: " + i + " xi: " + points[i] + " fi: " + func.apply(points[i]) +
                     " w(xi): " + mult(points[i], i) + " fi/w(xi): " + func.apply(points[i]) / mult(points[i], i) +
-                    " X* - xi: " + (x - points[i]));
+                    " X* - xi: " + (x_points - points[i]));
 */
         }
         return sum;

@@ -74,11 +74,11 @@ class OrdinaryLeastSquares {
             e.printStackTrace();
         }
 
-        LU_Algorithm alg_lu = new LU_Algorithm();
-        alg_lu.readData(dir.concat(filename));
-        alg_lu.decompose();
-        alg_lu.getB(b);
-        double[] coefs = alg_lu.solve(b);
+        LU_Algorithm algLU = new LU_Algorithm();
+        algLU.readData(dir.concat(filename));
+        algLU.decompose();
+        algLU.getB(b);
+        double[] coefs = algLU.solve(b);
         /*
         System.out.println("Indices: ");
         for (int i = 0; i <= degree; i++) {
@@ -96,9 +96,9 @@ class OrdinaryLeastSquares {
 
         try (FileWriter fw = new FileWriter(file, false)) {
             StringBuffer func = new StringBuffer();
-            func.append("").append(String.valueOf(coefs[0]));
+            func.append(String.valueOf(coefs[0]));
             for (int i = 1; i <= degree; i++) {
-                func.append("+").append(String.valueOf(coefs[i])).append("*x^").append(String.valueOf(i));
+                func.append("+").append(String.valueOf(coefs[i])).append("*x_points^").append(String.valueOf(i));
                 fw.append(func);
             }
             System.out.println("Approx" + degree + ":\n" + func);
@@ -128,9 +128,9 @@ class OrdinaryLeastSquares {
             res += tmp;
         }
 /*
-        System.out.println("f(x[i]): ");
+        System.out.println("f(x_points[i]): ");
         for (int i = 0; i < amount; i++) {
-            System.out.println("" + x[i] + " : " + f[i]);
+            System.out.println("" + x_points[i] + " : " + f[i]);
         }
 */
         return res;
