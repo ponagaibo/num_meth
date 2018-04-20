@@ -41,8 +41,14 @@ class Lab3 {
     static void lab3_4(double[] newX, double[] newY, double cp) {
         System.out.println("\n~~~ Numerical Differentiation ~~~");
         new NumericalDifferentiation(newX, newY);
-        System.out.println("df_right: " + NumericalDifferentiation.right_dfunc(cp));
-        System.out.println("df_left: " + NumericalDifferentiation.left_dfunc(cp));
+        System.out.println("Right f'(" + cp + "): " + NumericalDifferentiation.right_dfunc1(cp));
+        System.out.println("Left f'(" + cp + "): " + NumericalDifferentiation.left_dfunc1(cp));
+        System.out.println("2 degree f'(" + cp + "): " + NumericalDifferentiation.dfun2(cp));
+        System.out.println("f''(" + cp + "): " + NumericalDifferentiation.ddfun2(cp));
         System.out.println("~~~~~~~~~~~~~~~");
+    }
+
+    static void lab3_5() {
+
     }
 }
