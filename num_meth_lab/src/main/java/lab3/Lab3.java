@@ -48,7 +48,35 @@ class Lab3 {
         System.out.println("~~~~~~~~~~~~~~~");
     }
 
-    static void lab3_5() {
-
+    static void lab3_5(Function<Double, Double> f, double b, double e, double h1, double h2) {
+        System.out.println("\n~~~ Numerical Integration ~~~");
+        new NumericalIntegration(f, b, e);
+        double r1 = NumericalIntegration.rectangle_method(h1);
+        double r2 = NumericalIntegration.rectangle_method(h2);
+        double t1 = NumericalIntegration.trapeze_method(h1);
+        double t2 = NumericalIntegration.trapeze_method(h2);
+        double s1 = NumericalIntegration.simpsons_rule(h1);
+        double s2 = NumericalIntegration.simpsons_rule(h2);
+        System.out.println("Rectangle method with h = " + h1 + ": " + r1);
+        System.out.println("Trapeze method with h = " + h1 + ": " + t1);
+        System.out.println("Simpson's rule with h = " + h1 + ": " + s1);
+        System.out.println("Rectangle method with h = " + h2 + ": " + r2);
+        System.out.println("Trapeze method with h = " + h2 + ": " + t2);
+        System.out.println("Simpson's rule with h = " + h2 + ": " + s2);
+        double real_answer = 0.7854;
+        System.out.println("Accurate answer: " + real_answer);
+        double improved_r = NumericalIntegration.runge_method(h1, h2, r1, r2, 2);
+        double improved_t = NumericalIntegration.runge_method(h1, h2, t1, t2, 2);
+        double improved_s = NumericalIntegration.runge_method(h1, h2, s1, s2, 2);
+        double error_r = Math.abs(real_answer - improved_r);
+        double error_t = Math.abs(real_answer - improved_t);
+        double error_s = Math.abs(real_answer - improved_s);
+        System.out.println("Improved rectangle method: " + improved_r);
+        System.out.println("Error of rectangle method: " + error_r);
+        System.out.println("Improved trapeze method: " + improved_t);
+        System.out.println("Error of trapeze method: " + error_t);
+        System.out.println("Improved Simpson's rule: " + improved_s);
+        System.out.println("Error of Simpsom's rule: " + error_s);
+        System.out.println("~~~~~~~~~~~~~~~");
     }
 }

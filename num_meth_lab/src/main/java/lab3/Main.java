@@ -11,13 +11,12 @@ public class Main {
         double exampleCheckPoint = 0.8;
 */
 
-/* // my L and N
+        // my L and N
         double[] myPointsL = new double[] {-0.4, -0.1, 0.2, 0.5};
         double[] myPointsN = new double[] {-0.4, 0., 0.2, 0.5};
         Function<Double, Double> myFunction = Math::asin;
         double myCheckPointI = 0.1;
         Lab3.lab3_1(myPointsL, myPointsN, myFunction, myCheckPointI);
-*/
 
 /* // for example of spline
         double[] ex_x = new double[] {0, 1, 2, 3, 4};
@@ -25,14 +24,14 @@ public class Main {
         double exCheckPoint = 1.5;
 */
 
-/* // my spline
+        // my spline
         double[] xSpline = new double[] {-0.4, -0.1, 0.2, 0.5, 0.8};
         double[] fSpline = new double[] {-0.41152, -0.10017, 0.20136, 0.52360, 0.92730};
         double checkPointSpline = 0.1;
         Lab3.lab3_2(xSpline, fSpline, checkPointSpline);
-*/
 
-        /* // my ols       Lab3.lab3_3();*/
+        // my ols
+        Lab3.lab3_3();
 
 
 /*  // for example of differentiation
@@ -41,13 +40,25 @@ public class Main {
         double exCP = 0.2;
 */
 
-/*
         double[] xDif = new double[]{-1.0, 0.0, 1.0, 2.0, 3.0};
         double[] fDif = new double[]{-0.7854, 0.0, 0.78540, 1.1071, 1.249};
         double checkPointDif = 1;
         Lab3.lab3_4(xDif, fDif, checkPointDif);
+
+/* // for example of integration
+        Function<Double, Double> ex_func_ni = (x) -> x / ((3 * x + 4) * (3 * x + 4));
+        double begin_ex = -1;
+        double end_ex = 1;
+        double h1_ex = 0.5;
+        double h2_ex = 0.25;
 */
 
+        Function<Double, Double> my_func_ni = (x) -> 1 / (x * x + 4);
+        double begin = -2.;
+        double end = 2.;
+        double h1 = 1.;
+        double h2 = 0.5;
+        Lab3.lab3_5(my_func_ni, begin, end, h1, h2);
 
     }
 }
