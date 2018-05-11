@@ -34,7 +34,8 @@ public class Main {
         Lab3.lab3_3();
 
 
-/*  // for example of differentiation
+/*
+  // for example of differentiation
         double[] exX = new double[]{0.0, 0.1, 0.2, 0.3, 0.4};
         double[] exF = new double[]{1.0, 1.1052, 1.2214, 1.3499, 1.4918};
         double exCP = 0.2;
