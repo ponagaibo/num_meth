@@ -18,6 +18,14 @@ public class TridiagonalAlgorithm {
 
     private int dim;
 
+    public int getDim() {
+        return dim;
+    }
+
+    public void getSolving(double[] root) {
+        System.arraycopy(solving, 0, root, 0, solving.length);
+    }
+
     private void print_matrix() {
         int a_cnt = 0;
         int b_cnt = 0;
@@ -107,9 +115,6 @@ public class TridiagonalAlgorithm {
         for (int i = dim - 1; i >= 1; i--) {
             solving[i - 1] = p_coef[i - 1] * solving[i] + q_coef[i - 1];
         }
-    }
-
-    public void getSolving(double[] root)  {
     }
 
     void lab1_n8_1_2() {

@@ -1,5 +1,6 @@
 package lab4;
 
+import java.util.ArrayList;
 import java.util.function.Function;
 
 public class RungeKuttaMethod {
@@ -41,20 +42,19 @@ public class RungeKuttaMethod {
         this.real_f = real_f;
     }
 
-     public double[] rungeKuttaMethod(int steps) {
+    public ArrayList<Double> rungeKuttaMethod(double h) {
         double[] k = new double[4];
         double[] l = new double[4];
-        double[] roots = new double[(int) Math.ceil((b - a) / h) + 1];
+        ArrayList<Double> roots = new ArrayList<>();
         double prev_x = x0;
         double prev_y = y0;
         double prev_z = z0;
         int cnt = 0;
-        int times = steps > 0 ? steps : Integer.MAX_VALUE;
-        while (prev_x <= b && cnt < times) {
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            roots.add(prev_y);
             double r = real_f.apply(prev_x);
-            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
-                    + ", eps: " + Math.abs(r - prev_y));
-            roots[cnt] = prev_y;
+//            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+//                    + ", eps: " + Math.abs(r - prev_y));
             k[0] = h * my_func1.apply(prev_x, prev_y, prev_z);
             l[0] = h * my_func2.apply(prev_x, prev_y, prev_z);
             k[1] = h * my_func1.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
@@ -72,20 +72,19 @@ public class RungeKuttaMethod {
             prev_z = z;
             cnt++;
         }
+//        System.out.println("Roots size: " + roots.size());
         return roots;
     }
 
-    public double[] rungeKuttaMethod(int steps, double[] yy, double[] zz) {
+    public void rungeKuttaMethod(int steps, double[] yy, double[] zz, double h) {
         double[] k = new double[4];
         double[] l = new double[4];
-        double[] roots = new double[(int) Math.ceil((b - a) / h) + 1];
         double prev_x = x0;
         double prev_y = y0;
         double prev_z = z0;
         int cnt = 0;
         int times = steps > 0 ? steps : Integer.MAX_VALUE;
-        while (prev_x <= b && cnt < times) {
-            roots[cnt] = prev_y;
+        while (((int) (prev_x * 100)) / 100. <= b && cnt < times) {
             k[0] = h * my_func1.apply(prev_x, prev_y, prev_z);
             l[0] = h * my_func2.apply(prev_x, prev_y, prev_z);
             k[1] = h * my_func1.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
@@ -105,7 +104,6 @@ public class RungeKuttaMethod {
             prev_z = z;
             cnt++;
         }
-        return roots;
     }
 
     public void check(int steps, double[] yy) {

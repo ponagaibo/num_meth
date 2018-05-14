@@ -31,12 +31,12 @@ public class AdamsMethod {
         this.real_f = real_f;
     }
 
-    void adamsMethod() {
+    ArrayList<Double> adamsMethod(double h) {
+        ArrayList<Double> roots = new ArrayList<>();
         RungeKuttaMethod tmp_rkm = new RungeKuttaMethod(h, a, b, x0, y0, z0, my_func1, my_func2, real_f);
         double[] four_y = new double[4];
         double[] four_z = new double[4];
-        tmp_rkm.rungeKuttaMethod(4, four_y, four_z);
-//        System.out.println("Roots len: " + four_y.length);
+        tmp_rkm.rungeKuttaMethod(4, four_y, four_z, h);
         double prev_x = x0;
         double prev_y = four_y[3];
         double prev_z = four_z[3];
@@ -45,13 +45,14 @@ public class AdamsMethod {
         for (int i = 0; i < 4; i++) {
             y_roots.add(four_y[i]);
             z_roots.add(four_z[i]);
-//            System.out.println("y: " + four_y[i] + ", z: " + four_z[i]);
         }
         int size = y_roots.size() - 1;
-        while (prev_x <= b) {
+
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            roots.add(y_roots.get(size - 3));
             double r = real_f.apply(prev_x);
-            System.out.println("k: " + (size - 3) + ", x: " + prev_x + ", y: " + y_roots.get(size - 3)
-                    + ", real y: " + r + ", eps: " + Math.abs(r - y_roots.get(size - 3)));
+//            System.out.println("k: " + (size - 3) + ", x: " + prev_x + ", y: " + y_roots.get(size - 3)
+//                    + ", real y: " + r + ", eps: " + Math.abs(r - y_roots.get(size - 3)));
             double y = prev_y + (55 * my_func1.apply(x0 + size * h, y_roots.get(size), z_roots.get(size))
                     - 59 * my_func1.apply(x0 + (size - 1) * h, y_roots.get(size - 1),z_roots.get(size - 1))
                     + 37 * my_func1.apply(x0 + (size - 2) * h, y_roots.get(size - 2),z_roots.get(size - 2))
@@ -67,6 +68,7 @@ public class AdamsMethod {
             prev_z = z;
             size++;
         }
+        return roots;
     }
 
     void check() {

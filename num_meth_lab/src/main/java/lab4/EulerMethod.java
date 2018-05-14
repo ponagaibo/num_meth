@@ -1,5 +1,8 @@
 package lab4;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.function.Function;
 
 public class EulerMethod {
@@ -29,25 +32,29 @@ public class EulerMethod {
         this.real_f = real_f;
     }
 
-    public void eulerMethod() {
+    public List<Double> eulerMethod(double h0) {
+        List<Double> roots = new ArrayList<>();
         double prev_x = x0;
         double prev_y = y0;
         double prev_z = z0;
         int cnt = 0;
-        while (prev_x <= b) {
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            roots.add(prev_y);
             double r = real_f.apply(prev_x);
-            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
-                    + ", eps: " + Math.abs(r - prev_y));
-            double y = prev_y + h * my_func1.apply(prev_x, prev_y, prev_z);
-            double z = prev_z + h * my_func2.apply(prev_x, prev_y, prev_z);
-            prev_x = prev_x + h;
+//            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+//                    + ", eps: " + Math.abs(r - prev_y));
+            double y = prev_y + h0 * my_func1.apply(prev_x, prev_y, prev_z);
+            double z = prev_z + h0 * my_func2.apply(prev_x, prev_y, prev_z);
+            prev_x = prev_x + h0;
             prev_y = y;
             prev_z = z;
             cnt++;
         }
+//        System.out.println("Roots size: " + roots.size());
+        return roots;
     }
 
-    public static void check(){
+    public static void check() {
         double h = 0.1;
         double a = 0;
         double b = 0.5;
@@ -56,7 +63,7 @@ public class EulerMethod {
         double prev_y = 0;
         Function<Double, Double> real_f = (x) -> Math.tan(x) - x;
         int cnt = 0;
-        while (prev_x <= b) {
+        while (((int) (prev_x * 100)) / 100. <= b) {
             double r = real_f.apply(prev_x);
             System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
                     + ", eps: " + Math.abs(r - prev_y));
