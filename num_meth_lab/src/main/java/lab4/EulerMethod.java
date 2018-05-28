@@ -32,6 +32,7 @@ public class EulerMethod {
         this.real_f = real_f;
     }
 
+
     public List<Double> eulerMethod(double h0) {
         List<Double> roots = new ArrayList<>();
         double prev_x = x0;
@@ -52,6 +53,84 @@ public class EulerMethod {
         }
 //        System.out.println("Roots size: " + roots.size());
         return roots;
+    }
+
+    public double eulerMethod(double h0, double x_last, double y_last, double z_last) {
+        double prev_x = x_last;
+        double prev_y = y_last;
+        double prev_z = z_last;
+        int cnt = 0;
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            double r = real_f.apply(prev_x);
+//            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+//                    + ", eps: " + Math.abs(r - prev_y));
+            double y = prev_y + h0 * my_func1.apply(prev_x, prev_y, prev_z);
+            double z = prev_z + h0 * my_func2.apply(prev_x, prev_y, prev_z);
+            prev_x = prev_x + h0;
+            prev_y = y;
+            prev_z = z;
+            cnt++;
+        }
+//        System.out.println("Roots size: " + roots.size());
+        return prev_y;
+    }
+
+    public double reversedEulerMethod(double h0, double x_last, double y_last, double z_last) {
+        List<Double> roots = new ArrayList<>();
+        double prev_x = x_last;
+        double prev_y = y_last;
+        double prev_z = z_last;
+        int cnt = 0;
+        while (((int) (prev_x * 100)) / 100. >= a) {
+            roots.add(prev_y);
+            double r = real_f.apply(prev_x);
+//            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+//                    + ", eps: " + Math.abs(r - prev_y));
+            double y = prev_y - h0 * my_func1.apply(prev_x, prev_y, prev_z);
+            double z = prev_z - h0 * my_func2.apply(prev_x, prev_y, prev_z);
+            prev_x = prev_x - h0;
+            prev_y = y;
+            prev_z = z;
+            cnt++;
+        }
+        double check = prev_z + 2 * prev_y;
+        return prev_y;
+    }
+
+    public void reversedEulerMethod(double h0, double x_last, double y_last, double z_last, boolean compare) {
+        double prev_x = x_last;
+        double prev_y = y_last;
+        double prev_z = z_last;
+        int cnt = 0;
+        while (((int) (prev_x * 100)) / 100. >= a) {
+            double r = real_f.apply(prev_x);
+            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+                    + ", eps: " + Math.abs(r - prev_y));
+            double y = prev_y - h0 * my_func1.apply(prev_x, prev_y, prev_z);
+            double z = prev_z - h0 * my_func2.apply(prev_x, prev_y, prev_z);
+            prev_x = prev_x - h0;
+            prev_y = y;
+            prev_z = z;
+            cnt++;
+        }
+    }
+
+    public void eulerMethodWithPrint(double h0, double user_y, double user_z) {
+        double prev_x = x0;
+        double prev_y = user_y;
+        double prev_z = user_z;
+        int cnt = 0;
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            double r = real_f.apply(prev_x);
+            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+                    + ", eps: " + Math.abs(r - prev_y));
+            double y = prev_y + h0 * my_func1.apply(prev_x, prev_y, prev_z);
+            double z = prev_z + h0 * my_func2.apply(prev_x, prev_y, prev_z);
+            prev_x = prev_x + h0;
+            prev_y = y;
+            prev_z = z;
+            cnt++;
+        }
     }
 
     public static void check() {

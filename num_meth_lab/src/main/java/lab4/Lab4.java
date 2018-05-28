@@ -100,13 +100,23 @@ public class Lab4 {
         System.out.println("~~~~~~~~~~~~~~~");
     }
 
-    void lab4_2(double h, double a, double b, double alpha, double beta, double y_a, double y_b,
-                Function<Double, Double> p, Function<Double, Double> q, Function<Double, Double> f,
-                Function<Double, Double> real) throws FileNotFoundException {
+    void lab4_2_df(double h, double a, double b, double y_a, double y_b, Function<Double, Double> p,
+                   Function<Double, Double> q, Function<Double, Double> f,
+                   Function<Double, Double> real) throws FileNotFoundException {
         System.out.println("\n~~~ Finite Difference method ~~~");
-        FiniteDiffirenceMethod fm = new FiniteDiffirenceMethod(h, a, b, alpha, beta, y_a, y_b, p, q, f, real);
-        fm.buildtriMatrix();
+        FiniteDiffirenceMethod fm = new FiniteDiffirenceMethod(h, a, b, y_a, y_b, p, q, f, real);
+        fm.finiteDifferenceMethod();
         System.out.println("~~~~~~~~~~~~~~~");
 
+    }
+
+    void lab4_2_sm(double h, double a, double b, double y_a, double y_b,
+                   Main.Function3<Double, Double, Double, Double> f1,
+                   Main.Function3<Double, Double, Double, Double> f2,
+                   Function<Double, Double> real_f) {
+        System.out.println("\n~~~ Shooting method ~~~");
+        ShootingMethod sm = new ShootingMethod(h, a, b, y_a, y_b, f1, f2, real_f);
+        sm.shootingMethod();
+        System.out.println("~~~~~~~~~~~~~~~");
     }
 }

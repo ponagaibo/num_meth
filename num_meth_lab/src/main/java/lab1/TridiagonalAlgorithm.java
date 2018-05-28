@@ -23,6 +23,11 @@ public class TridiagonalAlgorithm {
     }
 
     public void getSolving(double[] root) {
+//        System.out.println("Solving in ta: ");
+//        for (double s :
+//                solving) {
+//            System.out.println("" + s + " ");
+//        }
         System.arraycopy(solving, 0, root, 0, solving.length);
     }
 

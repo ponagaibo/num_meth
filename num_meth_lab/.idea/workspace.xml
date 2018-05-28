@@ -16,21 +16,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Lab4.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lab4/Lab4.java">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lab4/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="106" column="108" lean-forward="false" selection-start-line="106" selection-start-column="108" selection-end-line="106" selection-end-column="108" />
+            <state relative-caret-position="160">
+              <caret line="49" column="14" lean-forward="false" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tridiagonal_matrix_3_2.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lab3/tridiagonal_matrix_3_2.txt">
+      <file leaf-file-name="EulerMethod.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lab4/EulerMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="1389">
+              <caret line="131" column="18" lean-forward="true" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -39,37 +39,19 @@
       <file leaf-file-name="tridiagonal_matrix_4_2.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lab4/tridiagonal_matrix_4_2.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="21">
+              <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TridiagonalAlgorithm.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lab1/TridiagonalAlgorithm.java">
+      <file leaf-file-name="Lab4.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lab4/Lab4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-210">
-              <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-              <folding>
-                <element signature="e#447#448#0" expanded="true" />
-                <element signature="e#492#493#0" expanded="true" />
-                <element signature="e#561#562#0" expanded="true" />
-                <element signature="method#print_matrix#0;class#TridiagonalAlgorithm#0" expanded="false" />
-                <element signature="method#readData#0;class#TridiagonalAlgorithm#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/lab4/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="2163">
+              <caret line="107" column="11" lean-forward="false" selection-start-line="107" selection-start-column="11" selection-end-line="107" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -77,10 +59,50 @@
       <file leaf-file-name="FiniteDiffirenceMethod.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lab4/FiniteDiffirenceMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="59" column="25" lean-forward="false" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
+            <state relative-caret-position="1176">
+              <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+              <folding>
+                <marker date="1527454192000" expanded="true" signature="3805:3822" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TridiagonalAlgorithm.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lab1/TridiagonalAlgorithm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="25" column="0" lean-forward="false" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="11" />
+              <folding>
+                <marker date="1527454138000" expanded="true" signature="760:1941" ph="{...}" />
+                <marker date="1527454138000" expanded="true" signature="2012:3218" ph="{...}" />
+                <marker date="1527454138000" expanded="true" signature="3243:4065" ph="{...}" />
+                <marker date="1527454138000" expanded="true" signature="4090:4779" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShootingMethod.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lab4/ShootingMethod.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1071">
+              <caret line="52" column="54" lean-forward="false" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RungeKuttaMethod.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lab4/RungeKuttaMethod.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1575">
+              <caret line="207" column="46" lean-forward="false" selection-start-line="207" selection-start-column="46" selection-end-line="207" selection-end-column="46" />
+              <folding>
+                <element signature="method#rungeKuttaMethod#0;class#RungeKuttaMethod#0" expanded="false" />
+                <element signature="method#check#0;class#RungeKuttaMethod#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -116,7 +138,6 @@
         <option value="$PROJECT_DIR$/src/main/java/lab1/tridiagonal_algorithm.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/MatrixOperations.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/RotationAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/ComplexNumber.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/l1.5.txt" />
@@ -152,10 +173,12 @@
         <option value="$PROJECT_DIR$/src/main/java/common/RungeRombergError.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab3/Lab3.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab4/RungeRombergError.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lab4/AdamsMethod.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lab4/Lab4.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab4/EulerMethod.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab4/RungeKuttaMethod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lab4/AdamsMethod.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lab4/Lab4.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lab4/ShootingMethod.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab1/TridiagonalAlgorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab4/FiniteDiffirenceMethod.java" />
         <option value="$PROJECT_DIR$/src/main/java/lab4/Main.java" />
@@ -192,9 +215,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="y" value="24" />
     <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="height" value="720" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -269,7 +292,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -301,27 +323,20 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="lab3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="num_meth_lab" type="b2602c69:ProjectViewProjectNode" />
-              <item name="num_meth_lab" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="lab4" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="matr&#9;PSI&#9;JAVA://lab3.CubicSpline#buildTriMatrix&#10;norm&#9;PSI&#9;JAVA://lab1.IterativeSiedelAlgorithm#vector_norm&#10;precis&#9;PSI&#9;JAVA://lab4.EulerMethod#precision&#10;multipl&#9;PSI&#9;JAVA://lab1.LU_Algorithm#multiply" />
-    <property name="last_opened_file_path" value="G:/treap" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/num_methosd-master" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -346,7 +361,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="LU_Algorithm" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
@@ -374,25 +389,6 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="lab2.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="num_meth_labs" />
-      <envs />
-    </configuration>
-    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="lab3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="lab3.Main" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -554,19 +550,19 @@
       <listeners />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Main (1)" />
-      <item index="2" class="java.lang.String" itemvalue="Application.NewtonsEquationAlgorithm" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Main (2)" />
+      <item index="0" class="java.lang.String" itemvalue="Application.Temp" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Main (1)" />
+      <item index="3" class="java.lang.String" itemvalue="Application.NewtonsEquationAlgorithm" />
       <item index="4" class="java.lang.String" itemvalue="Application.LU_Algorithm" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="Application.LU_Algorithm" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Main (2)" />
-        <item index="3" class="java.lang.String" itemvalue="Application.NewtonsEquationAlgorithm" />
-        <item index="4" class="java.lang.String" itemvalue="Application.Main (1)" />
+        <item index="0" class="java.lang.String" itemvalue="Application.LU_Algorithm" />
+        <item index="1" class="java.lang.String" itemvalue="Application.NewtonsEquationAlgorithm" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Main (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Temp" />
       </list>
     </recent_temporary>
   </component>
@@ -588,16 +584,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932165" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -635,7 +631,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="107" />
+      <option name="time" value="110" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -668,6 +664,24 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/RungeKuttaMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1575">
+          <caret line="108" column="46" lean-forward="false" selection-start-line="108" selection-start-column="46" selection-end-line="108" selection-end-column="46" />
+          <folding>
+            <element signature="method#rungeKuttaMethod#0;class#RungeKuttaMethod#0" expanded="false" />
+            <element signature="method#check#0;class#RungeKuttaMethod#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/FiniteDiffirenceMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1326">
+          <caret line="78" column="63" lean-forward="false" selection-start-line="78" selection-start-column="63" selection-end-line="78" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab2/l2.2.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -683,13 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/l1.3.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
         </state>
       </provider>
     </entry>
@@ -750,13 +757,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab1/RotationAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -792,13 +792,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="98" column="9" lean-forward="true" selection-start-line="98" selection-start-column="9" selection-end-line="98" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab2/NewtonsSystemAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -831,34 +824,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/RungeKuttaMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1239">
-          <caret line="59" column="78" lean-forward="false" selection-start-line="59" selection-start-column="78" selection-end-line="59" selection-end-column="78" />
-          <folding>
-            <marker date="1526243640000" expanded="true" signature="4410:4416" ph="{...}" />
-            <marker date="1526243640000" expanded="false" signature="4464:5472" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/AdamsMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1092">
-          <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1526244014000" expanded="true" signature="3044:3050" ph="{...}" />
-            <marker date="1526244014000" expanded="false" signature="3069:4626" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab3/CubicSpline.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1128">
           <caret line="22" column="41" lean-forward="true" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +835,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1680">
           <caret line="80" column="5" lean-forward="false" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -874,89 +842,110 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="945">
           <caret line="45" column="24" lean-forward="false" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab3/system_3_3_1.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/l1.3.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="17">
+          <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab3/system_3_3_2.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/IterativeSiedelAlgorithm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="918">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/EulerMethod.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1113">
-          <caret line="56" column="32" lean-forward="false" selection-start-line="56" selection-start-column="32" selection-end-line="56" selection-end-column="32" />
-          <folding />
+        <state relative-caret-position="294">
+          <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab3/tridiagonal_matrix_3_2.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/AdamsMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="17">
+          <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/TridiagonalAlgorithm.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/RungeKuttaMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-210">
-          <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        <state relative-caret-position="1575">
+          <caret line="207" column="46" lean-forward="false" selection-start-line="207" selection-start-column="46" selection-end-line="207" selection-end-column="46" />
           <folding>
-            <element signature="e#447#448#0" expanded="true" />
-            <element signature="e#492#493#0" expanded="true" />
-            <element signature="e#561#562#0" expanded="true" />
-            <element signature="method#print_matrix#0;class#TridiagonalAlgorithm#0" expanded="false" />
-            <element signature="method#readData#0;class#TridiagonalAlgorithm#0" expanded="false" />
+            <element signature="method#rungeKuttaMethod#0;class#RungeKuttaMethod#0" expanded="false" />
+            <element signature="method#check#0;class#RungeKuttaMethod#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/ShootingMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="52" column="54" lean-forward="false" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab4/Lab4.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="106" column="108" lean-forward="false" selection-start-line="106" selection-start-column="108" selection-end-line="106" selection-end-column="108" />
+        <state relative-caret-position="2163">
+          <caret line="107" column="11" lean-forward="false" selection-start-line="107" selection-start-column="11" selection-end-line="107" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab4/tridiagonal_matrix_4_2.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="21">
+          <caret line="1" column="6" lean-forward="false" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab1/TridiagonalAlgorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="11" />
+          <folding>
+            <marker date="1527454138000" expanded="true" signature="760:1941" ph="{...}" />
+            <marker date="1527454138000" expanded="true" signature="2012:3218" ph="{...}" />
+            <marker date="1527454138000" expanded="true" signature="3243:4065" ph="{...}" />
+            <marker date="1527454138000" expanded="true" signature="4090:4779" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab4/FiniteDiffirenceMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="59" column="25" lean-forward="false" selection-start-line="59" selection-start-column="25" selection-end-line="59" selection-end-column="25" />
+        <state relative-caret-position="1176">
+          <caret line="65" column="0" lean-forward="false" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1527454192000" expanded="true" signature="3805:3822" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lab4/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="27" column="31" lean-forward="false" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="160">
+          <caret line="49" column="14" lean-forward="false" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lab4/EulerMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1389">
+          <caret line="131" column="18" lean-forward="true" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>

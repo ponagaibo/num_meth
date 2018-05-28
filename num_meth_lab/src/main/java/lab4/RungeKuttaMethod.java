@@ -76,6 +76,105 @@ public class RungeKuttaMethod {
         return roots;
     }
 
+    public double rungeKuttaMethod(double h, double x0, double y0, double z0) {
+        double[] k = new double[4];
+        double[] l = new double[4];
+        double prev_x = x0;
+        double prev_y = y0;
+        double prev_z = z0;
+        int cnt = 0;
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            double r = real_f.apply(prev_x);
+//            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+//                    + ", eps: " + Math.abs(r - prev_y));
+            k[0] = h * my_func1.apply(prev_x, prev_y, prev_z);
+            l[0] = h * my_func2.apply(prev_x, prev_y, prev_z);
+            k[1] = h * my_func1.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
+            l[1] = h * my_func2.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
+            k[2] = h * my_func1.apply(prev_x + h / 2, prev_y + k[1] / 2, prev_z + l[1] / 2);
+            l[2] = h * my_func2.apply(prev_x + h / 2, prev_y + k[1] / 2, prev_z + l[1] / 2);
+            k[3] = h * my_func1.apply(prev_x + h, prev_y + k[2], prev_z + l[2]);
+            l[3] = h * my_func2.apply(prev_x + h, prev_y + k[2], prev_z + l[2]);
+            double dy = (k[0] + 2 * k[1] + 2 * k[2] + k[3]) / 6;
+            double dz = (l[0] + 2 * l[1] + 2 * l[2] + l[3]) / 6;
+            double y = prev_y + dy;
+            double z = prev_z + dz;
+            prev_x = prev_x + h;
+            prev_y = y;
+            prev_z = z;
+            cnt++;
+        }
+        return prev_y;
+    }
+
+    public double modifiedRungeKuttaMethod(double h, double x0, double y0, double z0) {
+        double[] k = new double[4];
+        double[] l = new double[4];
+        double prev_x = x0;
+        double prev_y = y0;
+        double prev_z = z0;
+        int cnt = 0;
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            double shift = prev_x + h / 8;
+            if (((int) (prev_x * 100)) / 100. == -0.5) {
+                prev_x += shift;
+            }
+            double r = real_f.apply(prev_x);
+//            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+//                    + ", eps: " + Math.abs(r - prev_y));
+            k[0] = h * my_func1.apply(prev_x, prev_y, prev_z);
+            l[0] = h * my_func2.apply(prev_x, prev_y, prev_z);
+            k[1] = h * my_func1.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
+            l[1] = h * my_func2.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
+            k[2] = h * my_func1.apply(prev_x + h / 2, prev_y + k[1] / 2, prev_z + l[1] / 2);
+            l[2] = h * my_func2.apply(prev_x + h / 2, prev_y + k[1] / 2, prev_z + l[1] / 2);
+            k[3] = h * my_func1.apply(prev_x + h, prev_y + k[2], prev_z + l[2]);
+            l[3] = h * my_func2.apply(prev_x + h, prev_y + k[2], prev_z + l[2]);
+            double dy = (k[0] + 2 * k[1] + 2 * k[2] + k[3]) / 6;
+            double dz = (l[0] + 2 * l[1] + 2 * l[2] + l[3]) / 6;
+            double y = prev_y + dy;
+            double z = prev_z + dz;
+            if (prev_x == -0.5 + shift) {
+                prev_x -= shift;
+            }
+            prev_x = prev_x + h;
+            prev_y = y;
+            prev_z = z;
+            cnt++;
+        }
+        return prev_y;
+    }
+
+    public void rungeKuttaMethodWithPrint(double h, double x0, double y0, double z0) {
+        double[] k = new double[4];
+        double[] l = new double[4];
+        double prev_x = x0;
+        double prev_y = y0;
+        double prev_z = z0;
+        int cnt = 0;
+        while (((int) (prev_x * 100)) / 100. <= b) {
+            double r = real_f.apply(prev_x);
+            System.out.println("k: " + cnt + ", x: " + prev_x + ", y: " + prev_y + ", real y: " + r
+                    + ", eps: " + Math.abs(r - prev_y));
+            k[0] = h * my_func1.apply(prev_x, prev_y, prev_z);
+            l[0] = h * my_func2.apply(prev_x, prev_y, prev_z);
+            k[1] = h * my_func1.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
+            l[1] = h * my_func2.apply(prev_x + h / 2, prev_y + k[0] / 2, prev_z + l[0] / 2);
+            k[2] = h * my_func1.apply(prev_x + h / 2, prev_y + k[1] / 2, prev_z + l[1] / 2);
+            l[2] = h * my_func2.apply(prev_x + h / 2, prev_y + k[1] / 2, prev_z + l[1] / 2);
+            k[3] = h * my_func1.apply(prev_x + h, prev_y + k[2], prev_z + l[2]);
+            l[3] = h * my_func2.apply(prev_x + h, prev_y + k[2], prev_z + l[2]);
+            double dy = (k[0] + 2 * k[1] + 2 * k[2] + k[3]) / 6;
+            double dz = (l[0] + 2 * l[1] + 2 * l[2] + l[3]) / 6;
+            double y = prev_y + dy;
+            double z = prev_z + dz;
+            prev_x = prev_x + h;
+            prev_y = y;
+            prev_z = z;
+            cnt++;
+        }
+    }
+
     public void rungeKuttaMethod(int steps, double[] yy, double[] zz, double h) {
         double[] k = new double[4];
         double[] l = new double[4];

@@ -2,9 +2,10 @@ package lab1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Locale;
 import java.util.Scanner;
 
-class IterativeSiedelAlgorithm {
+public class IterativeSiedelAlgorithm {
     private class Element {
         double value;
         int str;
@@ -26,6 +27,15 @@ class IterativeSiedelAlgorithm {
     private Element[] coefs;
     private Element[] alpha;
 
+    public int getDim() {
+        return dim;
+    }
+
+    public double[] getSolvingSiedel(double[] solving) {
+        System.arraycopy(solving_siedel, 0, solving, 0, solving_siedel.length);
+        return solving_siedel;
+    }
+
     private Element[] append(Element[] coefs, double v, int s, int c) {
         int prev_size = coefs.length;
         Element[] res = new Element[prev_size + 1];
@@ -34,9 +44,9 @@ class IterativeSiedelAlgorithm {
         return res;
     }
 
-    void readData(String inFile) throws FileNotFoundException {
+    public void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
-        Scanner sc = new Scanner(inputFile);
+        Scanner sc = new Scanner(inputFile).useLocale(Locale.US);
         if (!sc.hasNextInt()) return;
         dim = sc.nextInt();
         coefs = new Element[0];
@@ -139,6 +149,7 @@ class IterativeSiedelAlgorithm {
     }
 
     private int solve_iterative() {
+        to_equivalent();
         solving_iter = new double[dim];
         System.arraycopy(beta, 0, solving_iter,0, dim);
         double eps = precision + 1;
@@ -159,7 +170,8 @@ class IterativeSiedelAlgorithm {
         return cnt_iter;
     }
 
-    private int siedel() {
+    public int siedel() {
+        to_equivalent();
         solving_siedel = new double[dim];
         double[] prev = new double[dim];
         System.arraycopy(beta, 0, prev, 0, dim);
