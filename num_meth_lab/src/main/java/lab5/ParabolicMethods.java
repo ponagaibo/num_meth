@@ -10,7 +10,7 @@ public abstract class ParabolicMethods {
     protected static Function<Double, Double> phi0; // function
     protected static Function<Double, Double> phiN; // function
     protected static Function<Double, Double> psi; // (x) -> x + Math.sin(Math.PI * x);
-    Lab5.Function2<Double, Double, Double> f;
+    protected Lab5.Function2<Double, Double, Double> f;
     protected static double h;
     protected static double tau;
     Lab5.Function2<Double, Double, Double> analyticSolution;
@@ -30,6 +30,6 @@ public abstract class ParabolicMethods {
         this.analyticSolution = analyticSolution;
     }
 
-    abstract double[] solving() throws FileNotFoundException;
+    abstract double[] solve(int approx) throws FileNotFoundException;
 
 }
