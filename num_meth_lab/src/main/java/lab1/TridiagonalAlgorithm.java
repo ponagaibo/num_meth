@@ -21,6 +21,22 @@ public class TridiagonalAlgorithm {
 
     private int dim;
 
+    public TridiagonalAlgorithm(int dim, double[] a, double[] b, double[] c, double[] d) {
+        this.dim = dim;
+        this.a_terms = new double[dim - 1];
+        this.b_terms = new double[dim];
+        this.c_terms = new double[dim - 1];
+        this.d_terms = new double[dim];
+        System.arraycopy(a, 0, this.a_terms, 0, a.length);
+        System.arraycopy(b, 0, this.b_terms, 0, b.length);
+        System.arraycopy(c, 0, this.c_terms, 0, c.length);
+        System.arraycopy(d, 0, this.d_terms, 0, d.length);
+    }
+
+    public TridiagonalAlgorithm() {
+
+    }
+
     public int getDim() {
         return dim;
     }
@@ -73,11 +89,14 @@ public class TridiagonalAlgorithm {
         System.out.println();
     }
 
-    public void readData(String inFile) throws FileNotFoundException {
+    public void readData() {
+
+    }
+
+    public void readDataFromFile(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile).useLocale(Locale.US);
         if (!sc.hasNextInt()) return;
-//        System.out.println("1");
         dim = sc.nextInt();
         a_terms = new double[dim - 1];
         b_terms = new double[dim];
@@ -87,46 +106,33 @@ public class TridiagonalAlgorithm {
         int b_cnt = 0;
         int c_cnt = 0;
         if (!sc.hasNextDouble()) return;
-//        System.out.println("2");
 
         b_terms[b_cnt++] = sc.nextDouble();
         if (!sc.hasNextDouble()) return;
-//        System.out.println("3");
 
         c_terms[c_cnt++] = sc.nextDouble();
         for (int i = 0; i < dim - 2; i++) {
             if (!sc.hasNextDouble()) return;
-//            System.out.println("4");
 
             a_terms[a_cnt++] = sc.nextDouble();
             if (!sc.hasNextDouble()) return;
-//            System.out.println("5");
 
             b_terms[b_cnt++] = sc.nextDouble();
             if (!sc.hasNextDouble()) return;
-//            System.out.println("6");
 
             c_terms[c_cnt++] = sc.nextDouble();
 
         }
         if (!sc.hasNextDouble()) return;
-//        System.out.println("7");
 
         a_terms[a_cnt] = sc.nextDouble();
         if (!sc.hasNextDouble()) return;
-//        System.out.println("8");
 
         b_terms[b_cnt] = sc.nextDouble();
         for (int i = 0; i < dim; i++) {
             if (!sc.hasNextDouble()) return;
             d_terms[i] = sc.nextDouble();
         }
-//        System.out.println("9");
-//        System.out.println("Dim: " + dim);
-//        System.out.println("C: ");
-//        Lab5.printArray(c_terms);
-//        System.out.println("B: ");
-//        Lab5.printArray(b_terms);
     }
 
     public void algo() {

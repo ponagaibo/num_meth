@@ -11,7 +11,7 @@ public class Main {
 
         // Item 1.2
         TridiagonalAlgorithm alg_tridig = new TridiagonalAlgorithm();
-        alg_tridig.readData("l1.2.txt");
+        alg_tridig.readDataFromFile("l1.2.txt");
         alg_tridig.lab1_n8_1_2();
 
         // Item 1.3

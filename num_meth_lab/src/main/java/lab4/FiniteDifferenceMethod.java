@@ -1,6 +1,5 @@
 package lab4;
 
-import lab1.IterativeSiedelAlgorithm;
 import lab1.TridiagonalAlgorithm;
 
 import java.io.File;
@@ -99,7 +98,7 @@ public class FiniteDifferenceMethod {
         writeTriMatrix(filename, dir);
 
         TridiagonalAlgorithm alg_tridig = new TridiagonalAlgorithm();
-        alg_tridig.readData(dir.concat(filename));
+        alg_tridig.readDataFromFile(dir.concat(filename));
         alg_tridig.algo();
         double[] roots = new double[alg_tridig.getDim()];
         alg_tridig.getSolving(roots);

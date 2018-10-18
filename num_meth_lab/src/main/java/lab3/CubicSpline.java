@@ -66,7 +66,7 @@ class CubicSpline {
         }
 
         TriM alg_tridig = new TriM();
-        alg_tridig.readData(dir.concat(filename));
+        alg_tridig.readDataFromFile(dir.concat(filename));
         alg_tridig.algo();
         c_i = new double[x_i.length];
         alg_tridig.getSolving(c_i);

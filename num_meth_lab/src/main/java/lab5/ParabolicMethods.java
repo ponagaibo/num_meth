@@ -1,33 +1,25 @@
 package lab5;
 
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.function.Function;
 
 public abstract class ParabolicMethods {
-    protected static double a;
-    protected static double left;
-    protected static double right;
-    protected static Function<Double, Double> phi0; // function
-    protected static Function<Double, Double> phiN; // function
-    protected static Function<Double, Double> psi; // (x) -> x + Math.sin(Math.PI * x);
-    protected Lab5.Function2<Double, Double, Double> f;
-    protected static double h;
-    protected static double tau;
-    Lab5.Function2<Double, Double, Double> analyticSolution;
+    protected static double a = 1.0;
+    protected static double right = Math.PI / 2.0;
+    protected static Function<Double, Double> phi0 = (t) -> Math.sin(t);
+    protected static Function<Double, Double> phiN = (t) -> -Math.sin(t);
+    protected static Function<Double, Double> psi = (x) -> 0.0;
+    protected Lab5.Function2<Double, Double, Double> f = (x, t) -> Math.cos(x) * (Math.cos(t) + Math.sin(t));
+    Lab5.Function2<Double, Double, Double> analyticSolution = (x, t) -> Math.sin(t) * Math.cos(x);
+    Map<Double, Double[][]> fullSolution;
 
-    ParabolicMethods(double a, double left, double right, Function<Double, Double> phi0, Function<Double, Double> phiN,
-                     Function<Double, Double> psi, Lab5.Function2<Double, Double, Double> f, double h, double tau,
-                     Lab5.Function2<Double, Double, Double> analyticSolution) {
-        this.a = a;
-        this.left = left;
-        this.right = right;
-        this.phi0 = phi0;
-        this.phiN = phiN;
-        this.psi = psi;
-        this.f = f;
-        this.h = h;
-        this.tau = tau;
-        this.analyticSolution = analyticSolution;
+    protected static int valueN;
+    protected static double valueT;
+
+    ParabolicMethods(int n, double t) {
+        this.valueN = n;
+        this.valueT = t;
     }
 
     abstract double[] solve(int approx) throws FileNotFoundException;
