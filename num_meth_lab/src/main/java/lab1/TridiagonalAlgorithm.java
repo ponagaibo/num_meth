@@ -89,10 +89,6 @@ public class TridiagonalAlgorithm {
         System.out.println();
     }
 
-    public void readData() {
-
-    }
-
     public void readDataFromFile(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile).useLocale(Locale.US);

@@ -7,6 +7,10 @@ import static lab5.Lab5.printArray;
 import static lab5.Lab5.printMap;
 
 public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
+    int k;
+    double tau;
+    double h;
+
     ExplicitFiniteDifferenceMethod(int n, double t) {
         super(n, t);
     }
@@ -20,10 +24,11 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
             System.out.println("\nApproximation accuracy: 2, points: 2");
         }
         int points = valueN;
-        double h = right / points;
+        h = right / points;
         double endTime = valueT;//Math.PI; // 2pi!!!
         int times = (int) Math.ceil(2 * endTime * a / (h * h));
-        double tau = endTime / times;
+        k = times;
+        tau = endTime / times;
         double sigma = a * tau / (h * h);
         System.out.println("h = " + h + ", delta = " + right + ", N = " + points + ", K = " + times
                 + ", tau = " + tau + ", sigma = " + sigma);
@@ -36,11 +41,11 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
 
         // t = 0
         double time = 0;
-        Double[][] tempDD = new Double[points + 1][2];
+        Double[][] tempDD = new Double[2][points + 1];
         for (int i = 0; i < points + 1; i++) {
             currentSolution[i] = psi.apply(i * h);
-            tempDD[i][0] = i * h;
-            tempDD[i][1] = currentSolution[i];
+            tempDD[0][i] = i * h;
+            tempDD[1][i] = currentSolution[i];
         }
         fullSolution.put(time * tau, tempDD);
 
@@ -54,6 +59,8 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
         double maxError = 0.0;
         double maxErrorTime = 0.0;
         for (time = 1; time <= times; time++) {
+            tempDD = new Double[2][points + 1];
+
             if (time % 1000 == 0) {
                 System.out.println("time = " + time);
             }
@@ -61,12 +68,12 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
 
             currentSolution[0] = phi0.apply(time * tau);
             tempDD[0][0] = 0.0;
-            tempDD[0][1] = currentSolution[0];
+            tempDD[1][0] = currentSolution[0];
             for (int j = 1; j < points; j++) {
                 currentSolution[j] = sigma * previousSolution[j + 1] + (1 - 2 * sigma) * previousSolution[j]
                         + sigma * previousSolution[j - 1] + tau * f.apply(j * h, time * tau);
-                tempDD[j][0] = j * h;
-                tempDD[j][1] = currentSolution[j];
+                tempDD[0][j] = j * h;
+                tempDD[1][j] = currentSolution[j];
             }
             if (approx == 1) {
                 currentSolution[points] = h * phiN.apply(time * tau) + currentSolution[points - 1];
@@ -81,8 +88,8 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
                         + h * h / denom * previousSolution[points]
                         + tau * h * h / denom * f.apply(points * h, (time + 1) * tau);
             }
-            tempDD[points][0] = points * h;
-            tempDD[points][1] = currentSolution[points];
+            tempDD[0][points] = points * h;
+            tempDD[1][points] = currentSolution[points];
             fullSolution.put(time * tau, tempDD);
 //            System.out.println("\ntime = " + time * tau);
 //            printArray(currentSolution);
@@ -102,7 +109,6 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
                 maxErrorTime = time;
             }
         }
-//        efdmSolution = new Lab5.Solution(currentSolution, partition);
 //        printMap(fullSolution);
         System.out.println("\nMin error: " + minError + " at time = " + minErrorTime + ", max error: " + maxError + " at time = " + maxErrorTime);
         return currentSolution;
@@ -110,5 +116,17 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
 
     Map<Double, Double[][]> getFullSolution() {
         return fullSolution;
+    }
+
+    public int getK() {
+        return k;
+    }
+
+    public double getTau() {
+        return tau;
+    }
+
+    public double getH() {
+        return h;
     }
 }

@@ -4,7 +4,8 @@ import com.github.sh0nk.matplotlib4j.Plot;
 import com.github.sh0nk.matplotlib4j.PythonExecutionException;
 import java.io.IOException;
 import java.util.Arrays;
-
+// TODO: сделать храниние точек в мапе по номеру точки
+// TODO: thisTime = ceil(getValue / lastTau)
 public class Postprocessor {
     public static void main(String[] args) throws IOException, PythonExecutionException {
         Plot plt = Plot.create();
@@ -24,7 +25,6 @@ public class Postprocessor {
                 .add(Arrays.asList(0.0, 0.2, 0.4, 0.6, 0.8, 1.0))
                 .add(Arrays.asList(0.95395, 0.91770, 0.85278, 0.80473, 0.75075, 0.43738))
                 .label("real");
-
         plt.xlabel("x");
         plt.ylabel("u(x,t)");
         plt.text(0.5, 0.2, "ratata");

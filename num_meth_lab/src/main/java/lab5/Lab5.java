@@ -16,6 +16,13 @@ public class Lab5 {
         System.out.println();
     }
 
+    public static void printArray(Double[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print("" + array[i] + " ");
+        }
+        System.out.println();
+    }
+
     public static double arrayNorm(double[] a, double[] b) {
         double max = 0.0;
         for (int i = 0; i < a.length; i++) {
@@ -32,12 +39,12 @@ public class Lab5 {
             Double key = entry.getKey();
             Double[][] value = entry.getValue();
             System.out.println("\ntime = " + key + "\n");
-            for (int i = 0; i < value.length; i++) {
-                System.out.println("" + value[i][0] + " : " + value[i][1]);
+            for (int i = 0; i < value[0].length; i++) {
+                System.out.println("" + value[0][i] + " : " + value[1][i]);
             }
         }
     }
-
+/*
     Map<Double, Double[][]> lab5_efdm(int n, double t, int apr) {
         ExplicitFiniteDifferenceMethod efdm = new ExplicitFiniteDifferenceMethod(n, t);
         efdm.solve(apr);
@@ -72,5 +79,5 @@ public class Lab5 {
             System.arraycopy(y, 0, yPoints, 0, y.length);
 
         }
-    }
+    }*/
 }

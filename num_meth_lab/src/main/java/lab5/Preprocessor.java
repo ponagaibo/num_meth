@@ -1,5 +1,7 @@
 package lab5;
 
+import com.github.sh0nk.matplotlib4j.Plot;
+import com.github.sh0nk.matplotlib4j.PythonExecutionException;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -7,30 +9,30 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 import static lab5.Lab5.printMap;
 
-// all methods and approximations - RadioButton (one from whole group)
 // later may be CheckBox (yes or no every methods) to draw several plots
 
-// MouseEvent clicked for button Solve and RadioButtons
+// disable buttonPlot when change method or approx
 
-// radioButton.isSelected to check variant
-// group.getSelectedToggle() returns choosen button
+// TODO: plot for error, several plots, time via N, checkBox for table
 
 public class Preprocessor extends Application {
     Map<Double, Double[][]> lastSolution;
+    double lastK;
+    double lastTau;
+    double lastT;
+    double lastH;
+    Lab5.Function2<Double, Double, Double> analyticSolution = (x, t) -> Math.sin(t) * Math.cos(x);
 
     @Override
     public void start(Stage stage) {
@@ -45,7 +47,6 @@ public class Preprocessor extends Application {
         Text textEnterT = new Text("Enter T:");
 
         TextField textFieldForN = new TextField();
-        textFieldForN.setPromptText("Less than 20 for tridiagonal matrix");
         TextField textFieldForT = new TextField();
         textFieldForT.setPromptText("Less than 2*pi: " + (2 * Math.PI));
 
@@ -53,6 +54,8 @@ public class Preprocessor extends Application {
         Button buttonSetN = new Button("Set N");
         Button buttonSetT = new Button("Set T");
         Button buttonPlot = new Button("Show plot");
+        buttonPlot.setDisable(true);
+        buttonSolve.setDisable(true);
 
         ToggleGroup groupMethods = new ToggleGroup();
         RadioButton radioButtonExpl = new RadioButton("Explicit method");
@@ -70,11 +73,50 @@ public class Preprocessor extends Application {
         RadioButton radioButtonApr3 = new RadioButton("Approximation accuracy: 2, points: 2");
         radioButtonApr3.setToggleGroup(groupApr);
 
+        Slider sliderTime = new Slider();
+        sliderTime.setVisible(true);
+        sliderTime.setMin(0);
+        sliderTime.setMax(100);
+        sliderTime.setValue(0);
+        sliderTime.setShowTickLabels(true);
+        sliderTime.setShowTickMarks(true);
+        sliderTime.setSnapToTicks(true);
+        int amointOfTicks = 20; // if K < 20 => amountOfTicks = K
+        int m = (int) Math.ceil(lastK / amointOfTicks);
+        double step = m * lastTau;
+        sliderTime.setMinorTickCount(5);
+        sliderTime.setBlockIncrement(step);
+
+//        sliderTime.setMajorTickUnit(lastT / 5); // каждое пятое значение
+        sliderTime.setMinorTickCount(5);
+//        sliderTime.setBlockIncrement(step);
+        final Label labelTimeValue = new Label(Double.toString(sliderTime.getValue()));
+        labelTimeValue.setVisible(false);
+
+        CheckBox checkBoxTable = new CheckBox("Show table");
+/*        checkBoxTable.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                                Boolean old_val, Boolean new_val) {
+            }
+        });*/
+
+        sliderTime.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                labelTimeValue.setText(String.format("%.6f", new_val));
+            }
+        });
+
+
+
         buttonSetN.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 if ((textFieldForN.getText() != null && !textFieldForN.getText().isEmpty())) {
                     nSelected[0] = true;
+                    if (tSelected[0]) {
+                        buttonSolve.setDisable(false);
+                    }
                 } else {
                     System.out.println("You have not entered N");
                 }
@@ -84,6 +126,11 @@ public class Preprocessor extends Application {
         buttonSetT.setOnAction(e -> {
             if ((textFieldForT.getText() != null && !textFieldForT.getText().isEmpty())) {
                 tSelected[0] = true;
+                if (nSelected[0]) {
+                    buttonSolve.setDisable(false);
+                }
+                lastT = Double.parseDouble(textFieldForT.getText());
+
             } else {
                 System.out.println("You have not entered T");
             }
@@ -92,6 +139,7 @@ public class Preprocessor extends Application {
         groupMethods.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ov,
                                 Toggle old_toggle, Toggle new_toggle) {
+                buttonPlot.setDisable(true);
                 if (groupMethods.getSelectedToggle() != null) {
                     if (groupMethods.getSelectedToggle() == radioButtonExpl) {
                         System.out.println("\n\n~~~ Explicit Finite Difference Method  ~~~");
@@ -110,6 +158,7 @@ public class Preprocessor extends Application {
         groupApr.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ov,
                                 Toggle old_toggle, Toggle new_toggle) {
+                buttonPlot.setDisable(true);
                 if (groupApr.getSelectedToggle() != null) {
                     if (groupApr.getSelectedToggle() == radioButtonApr1) {
 //                        System.out.println("You choose Approximation accuracy: 1, points: 2");
@@ -129,34 +178,85 @@ public class Preprocessor extends Application {
             if (nSelected[0] && tSelected[0] && methodSelected[0] != 0 && aprSelected[0] != 0) {
                 Integer nn = Integer.parseInt(textFieldForN.getText());
                 Double tt = Double.parseDouble(textFieldForT.getText());
-                Lab5 lab5 = new Lab5();
+                lastT = tt;
+//                sliderTime.setMax(tt);
                 if (methodSelected[0] == 1) {
 //                    System.out.println("Explicit");
-                    lastSolution = lab5.lab5_efdm(nn, tt, aprSelected[0]);
+                    ExplicitFiniteDifferenceMethod efdm = new ExplicitFiniteDifferenceMethod(nn, tt);
+                    efdm.solve(aprSelected[0]);
+                    lastSolution = efdm.getFullSolution();
+                    lastK = efdm.getK();
+                    lastTau = efdm.getTau();
+                    lastH = efdm.getH();
                 } else if (methodSelected[0] == 2) {
 //                    System.out.println("Implicit");
-                    try {
-                        lastSolution = lab5.lab5_ifdm(nn, tt, aprSelected[0]);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    ImplicitFiniteDifferenceMethod ifdm = new ImplicitFiniteDifferenceMethod(nn, tt);
+                    ifdm.solve(aprSelected[0]);
+                    lastSolution = ifdm.getFullSolution();
+                    lastK = ifdm.getK();
+                    lastTau = ifdm.getTau();
+                    lastH = ifdm.getH();
                 } else if (methodSelected[0] == 3) {
 //                    System.out.println("Crank Nicolson");
-                    try {
-                        lastSolution = lab5.lab5_cnm(nn, tt, aprSelected[0]);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    CrankNicolsonMethod cnm = new CrankNicolsonMethod(nn, tt);
+                    cnm.solve(aprSelected[0]);
+                    lastSolution = cnm.getFullSolution();
+                    lastK = cnm.getK();
+                    lastTau = cnm.getTau();
+                    lastH = cnm.getH();
                 }
-                System.out.println("N: " + nn + ", T: " + tt);
+//                System.out.println("N: " + nn + ", T: " + tt);
+                buttonPlot.setDisable(false);
+                double mm = (int) Math.ceil(lastK / amointOfTicks);
+                double sstep = mm * lastTau;
+                sliderTime.setMax(lastT);
+//                System.out.println("m = " + mm + ", lastK = " + lastK + ", step = " + sstep
+//                        + ", lastTau = " + lastTau + ", lastH = " + lastH);
+
+                sliderTime.setMajorTickUnit(sstep * 5.0);
+                sliderTime.setMinorTickCount(4);
+                sliderTime.setBlockIncrement(sstep);
+                sliderTime.setVisible(true);
+                labelTimeValue.setVisible(true);
+                if (checkBoxTable.isSelected()) {
+                    printMap(lastSolution);
+                }
             } else {
                 System.out.println("You have not choose all parameters");
             }
         });
 
         buttonPlot.setOnAction(event -> {
-            System.out.println("Here the answer");
-            printMap(lastSolution);
+            double thisTime = sliderTime.getValue();
+            int rounded = (int) (thisTime * 10000);
+            double newTime = ((double) rounded) / 10000.0;
+            Double[][] thisSolution = lastSolution.get(thisTime);
+
+            Plot plt = Plot.create();
+            Double[] arrayRealY = new Double[thisSolution[0].length];
+            for (int i = 0; i < thisSolution[0].length; i++) {
+                arrayRealY[i] = analyticSolution.apply(thisSolution[0][i], thisTime);
+            }
+
+            plt.plot()
+                    .add(Arrays.asList(thisSolution[0]))
+                    .add(Arrays.asList(thisSolution[1]))
+                    .label("u(x," + newTime + ")");
+            plt.plot()
+                    .add(Arrays.asList(thisSolution[0]))
+                    .add(Arrays.asList(arrayRealY))
+                    .label("real u(x," + newTime + ")");
+            plt.xlabel("x");
+            plt.ylabel("u(x,t)");
+//            plt.text(0.5, 0.2, "ratata");
+
+            plt.title("Parabolic");
+            plt.legend();
+            try {
+                plt.show();
+            } catch (IOException | PythonExecutionException e) {
+                e.printStackTrace();
+            }
         });
 
         GridPane gridPane = new GridPane();
@@ -184,7 +284,10 @@ public class Preprocessor extends Application {
         gridPane.add(buttonSetT, 2, 6);
 
         gridPane.add(buttonSolve, 1, 8);
-        gridPane.add(buttonPlot, 1, 9);
+        gridPane.add(checkBoxTable, 2, 8);
+        gridPane.add(buttonPlot, 1, 11);
+        gridPane.add(sliderTime, 0, 10, 3, 1);
+        gridPane.add(labelTimeValue, 4, 10);
 
         Scene scene = new Scene(gridPane);
         stage.setTitle("Parabolic methods");
