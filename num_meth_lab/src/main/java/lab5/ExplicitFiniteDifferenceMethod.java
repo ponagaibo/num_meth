@@ -47,7 +47,7 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
             tempDD[0][i] = i * h;
             tempDD[1][i] = currentSolution[i];
         }
-        fullSolution.put(time * tau, tempDD);
+        fullSolution.put(time, tempDD);
 
         for (int i = 0; i < points + 1; i++) {
             realSolution[i] = analyticSolution.apply(i * h, time * tau);
@@ -90,7 +90,7 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
             }
             tempDD[0][points] = points * h;
             tempDD[1][points] = currentSolution[points];
-            fullSolution.put(time * tau, tempDD);
+            fullSolution.put(time, tempDD);
 //            System.out.println("\ntime = " + time * tau);
 //            printArray(currentSolution);
             for (int i = 0; i < points + 1; i++) {
@@ -109,7 +109,7 @@ public class ExplicitFiniteDifferenceMethod extends ParabolicMethods {
                 maxErrorTime = time;
             }
         }
-//        printMap(fullSolution);
+//        printMap(fullSolution, tau);
         System.out.println("\nMin error: " + minError + " at time = " + minErrorTime + ", max error: " + maxError + " at time = " + maxErrorTime);
         return currentSolution;
     }

@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="num_meth_lab1" target="1.8" />
-      <module name="num_meth_labs" target="1.8" />
+      <module name="num_meth_labs" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

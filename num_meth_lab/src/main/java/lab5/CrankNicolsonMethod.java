@@ -50,7 +50,7 @@ public class CrankNicolsonMethod extends ParabolicMethods {
             tempDD[0][i] = i * h;
             tempDD[1][i] = currentSolution[i];
         }
-        fullSolution.put(time * tau, tempDD);
+        fullSolution.put(time, tempDD);
 
         int dim = points - 1;
         double[] a_terms = new double[dim - 1];
@@ -173,10 +173,9 @@ public class CrankNicolsonMethod extends ParabolicMethods {
                 maxError = eps;
                 maxErrorTime = time;
             }
-            fullSolution.put((time + 1) * tau, tempDD);
-
+            fullSolution.put(time + 1, tempDD);
         }
-//        printMap(fullSolution);
+//        printMap(fullSolution, tau);
         System.out.println("\nMin error: " + minError + " at time = " + minErrorTime + ", max error: " + maxError + " at time = " + maxErrorTime);
         return currentSolution;
     }

@@ -1,10 +1,8 @@
-package lab5;
+package lab6;
 
-import java.io.FileNotFoundException;
 import java.util.Map;
-import java.util.function.Function;
 
-public class Lab5 {
+public class Lab6 {
     interface Function2<A, B, R> {
         R apply(A a, B b);
     }
@@ -70,41 +68,4 @@ public class Lab5 {
             }
         }
     }
-
-/*
-    Map<Double, Double[][]> lab5_efdm(int n, double t, int apr) {
-        ExplicitFiniteDifferenceMethod efdm = new ExplicitFiniteDifferenceMethod(n, t);
-        efdm.solve(apr);
-//        efdm.solve(2);
-//        efdm.solve(3);
-        return efdm.getFullSolution();
-    }
-
-    Map<Double, Double[][]> lab5_ifdm(int n, double t, int apr) throws FileNotFoundException {
-        ImplicitFiniteDifferenceMethod ifdm = new ImplicitFiniteDifferenceMethod(n, t);
-        ifdm.solve(apr);
-//        ifdm.solve(2);
-//        ifdm.solve(3);
-        return ifdm.getFullSolution();
-    }
-
-    Map<Double, Double[][]> lab5_cnm(int n, double t, int apr) throws FileNotFoundException {
-        CrankNicolsonMethod cnm = new CrankNicolsonMethod(n, t);
-        cnm.solve(apr);
-//        cnm.solve(2);
-//        cnm.solve(3);
-        return cnm.getFullSolution();
-    }
-
-    static class Solution {
-        double[] xPoints;
-        double[] yPoints;
-        Solution(double[] x, double[] y) {
-            xPoints = x;
-            yPoints = y;
-            System.arraycopy(x, 0, xPoints, 0, x.length);
-            System.arraycopy(y, 0, yPoints, 0, y.length);
-
-        }
-    }*/
 }
