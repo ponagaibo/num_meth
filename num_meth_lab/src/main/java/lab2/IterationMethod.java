@@ -9,5 +9,5 @@ public class IterationMethod {
             (Math.sqrt((Math.log(x + 1) + 1) / 2));
 
     public static void main(String[] args) {
-        presicion = NewtonAlgorithm.precision    }
+        presicion = NewtonAlgorithm.precision;    }
 }

@@ -20,13 +20,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Map;
 
-
 public class Preprocessor extends Application {
     Map<Double, Double[][]> lastSolution;
     double lastK;
     double lastTau;
     double lastA;
     double lastH;
+    double maxTime = 3.0 * Math.PI;
     Lab6.Function2<Double, Double, Double> analyticSolution =
             (x, t) -> Math.sin(x - lastA * t) + Math.cos(x + lastA * t);
 
@@ -75,7 +75,7 @@ public class Preprocessor extends Application {
         Slider sliderTime = new Slider();
         sliderTime.setVisible(true);
         sliderTime.setMin(0);
-        sliderTime.setMax(100);
+        sliderTime.setMax(maxTime);
         sliderTime.setValue(0);
         sliderTime.setShowTickLabels(true);
         sliderTime.setShowTickMarks(true);
@@ -171,7 +171,7 @@ public class Preprocessor extends Application {
         buttonSolve.setOnAction(event -> {
             if ((textFieldForN.getText() != null && !textFieldForN.getText().isEmpty())) {
                 nSelected[0] = true;
-                if (aSelected[0]) {
+                if (nSelected[0] && aSelected[0]) {
                     buttonSolve.setDisable(false);
                 }
             } else {
@@ -180,11 +180,10 @@ public class Preprocessor extends Application {
 
             if ((textFieldForA.getText() != null && !textFieldForA.getText().isEmpty())) {
                 aSelected[0] = true;
-                if (nSelected[0]) {
+                if (nSelected[0] && aSelected[0]) {
                     buttonSolve.setDisable(false);
                 }
                 lastA = Double.parseDouble(textFieldForA.getText());
-
             } else {
                 System.out.println("You have not entered a");
             }
@@ -220,7 +219,7 @@ public class Preprocessor extends Application {
                 buttonPlot.setDisable(false);
                 double mm = (int) Math.ceil(lastK / amointOfTicks);
                 double sstep = mm * lastTau;
-                sliderTime.setMax(Math.PI);
+                sliderTime.setMax(maxTime);
                 sliderTime.setMajorTickUnit(sstep * 5.0);
                 sliderTime.setMinorTickCount(4);
                 sliderTime.setBlockIncrement(sstep);
@@ -276,20 +275,16 @@ public class Preprocessor extends Application {
         gridPane.add(textEnterA, 0, 6);
         gridPane.add(textFieldForA, 1, 6);
 
-        gridPane.add(checkBoxTable, 0, 7);
-        gridPane.add(buttonSolve, 1, 7);
-        gridPane.add(labelTimeValue, 2, 7);
-        gridPane.add(sliderTime, 0, 8, 3, 1);
-        gridPane.add(buttonPlot, 1, 9);
+        gridPane.add(checkBoxTable, 0, 9);
+        gridPane.add(buttonSolve, 1, 9);
+        gridPane.add(labelTimeValue, 2, 9);
+        gridPane.add(sliderTime, 0, 10, 3, 1);
+        gridPane.add(buttonPlot, 1, 11);
 
         Scene scene = new Scene(gridPane);
         stage.setTitle("Hyperbolic methods");
         stage.setScene(scene);
         stage.show();
-//        HyperbolicMethods em = new ExplicitCrossMethod(600, 1.0);
-//        em.solve(3,2);
-//        HyperbolicMethods im = new ImplicitMethod(0);
-//        im.solve(3,2);
     }
 
     public static void main(String[] args) {

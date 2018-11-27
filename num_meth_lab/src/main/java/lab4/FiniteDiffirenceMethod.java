@@ -99,7 +99,7 @@ public class FiniteDiffirenceMethod {
         writeTriMatrix(filename, dir);
 
         TridiagonalAlgorithm alg_tridig = new TridiagonalAlgorithm();
-        alg_tridig.readData(dir.concat(filename));
+//        alg_tridig.readData(dir.concat(filename));
         alg_tridig.algo();
         double[] roots = new double[alg_tridig.getDim()];
         alg_tridig.getSolving(roots);

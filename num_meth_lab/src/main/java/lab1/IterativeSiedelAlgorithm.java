@@ -36,6 +36,10 @@ public class IterativeSiedelAlgorithm {
         return solving_siedel;
     }
 
+    public double[] getSolvingSiedel() {
+        return solving_siedel;
+    }
+
     private Element[] append(Element[] coefs, double v, int s, int c) {
         int prev_size = coefs.length;
         Element[] res = new Element[prev_size + 1];
@@ -225,6 +229,13 @@ public class IterativeSiedelAlgorithm {
         }
         System.arraycopy(prev, 0, solving_siedel, 0, dim);
         return cnt_siedel;
+    }
+
+    public double[] solveSiedel() {
+        to_equivalent();
+        int siedel_cnt = siedel();
+        System.out.println("\nIterations: " + siedel_cnt);
+        return getSolvingSiedel();
     }
 
     void lab1_n8_1_3() {

@@ -21,7 +21,7 @@ public abstract class HyperbolicMethods {
     Map<Double, Double[][]> fullSolution;
 
     protected static int valueN;
-    protected static double valueT = Math.PI;
+    protected static double valueT = 3.0 * Math.PI;
 
     HyperbolicMethods(int n, double aa) {
         this.valueN = n;
