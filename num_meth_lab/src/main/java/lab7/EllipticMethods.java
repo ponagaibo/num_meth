@@ -11,13 +11,19 @@ public abstract class EllipticMethods {
     protected static double a;
     protected static double right_x = 1.0;
     protected static double right_y = 1.0;
-    protected static Function<Double, Double> phi1 = (y) -> 0.0;
-    protected static Function<Double, Double> phi2 = (y) -> 1.0 - y * y;
-    protected static Function<Double, Double> phi3 = (x) -> 0.0;
-    protected static Function<Double, Double> phi4 = (x) -> x * x - 1.0;
+//    protected static Function<Double, Double> phi1 = (y) -> 0.0;
+//    protected static Function<Double, Double> phi2 = (y) -> 1.0 - y * y;
+//    protected static Function<Double, Double> phi3 = (x) -> 0.0;
+//    protected static Function<Double, Double> phi4 = (x) -> x * x - 1.0;
+    protected static Function<Double, Double> phi4 = (x) -> x + 1.0;
+    protected static Function<Double, Double> phi3 = (x) -> x;
+    protected static Function<Double, Double> phi2 = (y) -> 1.0 + y;
+    protected static Function<Double, Double> phi1 = (y) -> y;
 
     protected Lab7.Function2<Double, Double, Double> f = (x, y) -> 0.0;
-    Lab7.Function2<Double, Double, Double> analyticSolution = (x, y) -> x * x - y * y;
+//    Lab7.Function2<Double, Double, Double> analyticSolution = (x, y) -> x * x - y * y;
+    Lab7.Function2<Double, Double, Double> analyticSolution = (x, y) -> x + y;
+
     Map<Double, Double[][]> fullSolution;
 
     protected static int valueN1;
@@ -29,5 +35,5 @@ public abstract class EllipticMethods {
         this.a = aa;
     }
 
-    abstract double[] solve(int method) throws IOException, PythonExecutionException;
+    abstract double[] solve(int method, double relaxation) throws IOException, PythonExecutionException;
 }

@@ -7,7 +7,7 @@ public class Preprocessor extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         LiebmannMethod lm = new LiebmannMethod(0, 0,0);
-        lm.solve(1);
+        lm.solve(3, 2);
     }
 
 

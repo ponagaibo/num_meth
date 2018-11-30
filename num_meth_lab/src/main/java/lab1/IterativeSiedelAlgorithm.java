@@ -68,8 +68,44 @@ public class IterativeSiedelAlgorithm {
             if (!sc.hasNextDouble()) return;
             free_terms[i] = sc.nextDouble();
         }
-        if (!sc.hasNextDouble()) return;
+        if (!sc.hasNextDouble()) {
+            System.out.println("Alarm!! There is no precision");
+            return;
+        }
         precision = sc.nextDouble();
+        System.out.println("eps: " + precision);
+    }
+
+    public void getData(int dimension, double[][] m, double[] d, double eps) {
+        dim = dimension;
+        coefs = new Element[0];
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (m[i][j] != 0.0) {
+                    coefs = append(coefs, m[i][j], i, j);
+                }
+            }
+        }
+        free_terms = new double[dim];
+        for (int i = 0; i < dim; i++) {
+            free_terms[i] = d[i];
+        }
+        precision = eps;
+
+//        System.out.println("Get dim: " + dim);
+//        System.out.println("Get matr: ");
+//        for (int i = 0; i < m.length; i++) {
+//            for (int j = 0; j < m[0].length; j++) {
+//                System.out.print(m[i][j] + " ");
+//            }
+//            System.out.print("\n");
+//        }
+//        System.out.println("Get right part: ");
+//        for (int i = 0; i < m.length; i++) {
+//            System.out.print(d[i] + " ");
+//        }
+//        System.out.println("\n");
+//        System.out.println("Get eps: " + eps);
     }
 
     private void print_matrix(Element[] coefs) {
@@ -234,7 +270,7 @@ public class IterativeSiedelAlgorithm {
     public double[] solveSiedel() {
         to_equivalent();
         int siedel_cnt = siedel();
-        System.out.println("\nIterations: " + siedel_cnt);
+//        System.out.println("\nIterations: " + siedel_cnt);
         return getSolvingSiedel();
     }
 
