@@ -51,29 +51,48 @@ public class IterativeSiedelAlgorithm {
     public void readData(String inFile) throws FileNotFoundException {
         File inputFile = new File(inFile);
         Scanner sc = new Scanner(inputFile).useLocale(Locale.US);
-        if (!sc.hasNextInt()) return;
+        if (!sc.hasNextInt()) {
+            System.out.println("Alarm!! There is no dimension number");
+            return;
+        }
         dim = sc.nextInt();
+//        System.out.println("dim: " + dim);
         coefs = new Element[0];
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                if (!sc.hasNextDouble()) return;
+                if (!sc.hasNextDouble()) {
+                    System.out.println("Alarm!! There is no matrix coef");
+                    return;
+                }
                 double tmp = sc.nextDouble();
                 if (tmp != 0.0) {
                     coefs = append(coefs, tmp, i, j);
                 }
             }
         }
+//        System.out.println("Get matrix: ");
+//        print_matrix(coefs);
+
         free_terms = new double[dim];
         for (int i = 0; i < dim; i++) {
-            if (!sc.hasNextDouble()) return;
+            if (!sc.hasNextDouble()) {
+                System.out.println("Alarm!! There is no right part");
+                return;
+            }
             free_terms[i] = sc.nextDouble();
         }
+//        System.out.println("Right part: ");
+//        for (int i = 0; i < free_terms.length; i++) {
+//            System.out.print("" + free_terms[i] + " ");
+//        }
+//        System.out.println();
         if (!sc.hasNextDouble()) {
             System.out.println("Alarm!! There is no precision");
             return;
         }
         precision = sc.nextDouble();
-        System.out.println("eps: " + precision);
+//        System.out.println("eps: " + precision);
+//        System.out.println("Data is read successfully");
     }
 
     public void getData(int dimension, double[][] m, double[] d, double eps) {
@@ -188,7 +207,7 @@ public class IterativeSiedelAlgorithm {
         return res;
     }
 
-    private int solve_iterative() {
+    public int solve_iterative() {
         to_equivalent();
         solving_iter = new double[dim];
         System.arraycopy(beta, 0, solving_iter,0, dim);
@@ -272,6 +291,28 @@ public class IterativeSiedelAlgorithm {
         int siedel_cnt = siedel();
 //        System.out.println("\nIterations: " + siedel_cnt);
         return getSolvingSiedel();
+    }
+
+    public double[] solveIterative() {
+        to_equivalent();
+        solving_iter = new double[dim];
+        System.arraycopy(beta, 0, solving_iter,0, dim);
+        double eps = precision + 1;
+        int cnt_iter = 0;
+        while (eps > precision) {
+            double[] tmp = multiply(alpha, solving_iter);
+            for (int i = 0; i < dim; i++) {
+                tmp[i] += beta[i];
+            }
+            double[] diff = new double[dim];
+            for (int i = 0; i < dim; i++) {
+                diff[i] = tmp[i] - solving_iter[i];
+            }
+            eps = (vector_norm(diff) * matrix_norm(alpha)) / (1 - matrix_norm(alpha));
+            System.arraycopy(tmp, 0, solving_iter,0, dim);
+            cnt_iter++;
+        }
+        return solving_iter;
     }
 
     void lab1_n8_1_3() {

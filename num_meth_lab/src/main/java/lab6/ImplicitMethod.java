@@ -18,8 +18,8 @@ public class ImplicitMethod extends HyperbolicMethods {
     double tau;
     double h;
 
-    ImplicitMethod(int n, double a) {
-        super(n, a);
+    ImplicitMethod(int n, double a, double s) {
+        super(n, a, s);
     }
 
     @Override
@@ -40,9 +40,13 @@ public class ImplicitMethod extends HyperbolicMethods {
         int points = valueN;
         h = right / points;
         double endTime = valueT;
-        k = (int) Math.ceil(endTime * a / h) * 10;
-        tau = endTime / k;
-        double sigma = a * a * tau * tau / (h * h);
+//        k = (int) Math.ceil(endTime * a / h) * 10;
+//        tau = endTime / k;
+//        double sigma = a * a * tau * tau / (h * h);
+        double sigma = valueS;
+        tau = Math.sqrt(sigma) * h / a;
+        k = (int) Math.round(valueT / tau);
+
         System.out.println("h = " + h + ", tau = " + tau + ", sigma = " + sigma +
                 ", N = " + points + ", K = " + k + ", a = " + a);
 

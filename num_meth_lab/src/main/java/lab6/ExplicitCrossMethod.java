@@ -18,8 +18,8 @@ public class ExplicitCrossMethod extends HyperbolicMethods {
     double h;
     int k;
 
-    ExplicitCrossMethod(int n, Double a) {
-        super(n, a);
+    ExplicitCrossMethod(int n, Double a, Double s) {
+        super(n, a, s);
     }
 
     @Override
@@ -40,9 +40,13 @@ public class ExplicitCrossMethod extends HyperbolicMethods {
         int points = valueN;
         h = right / points;
         double endTime = valueT;
-        k = (int) Math.ceil(endTime * a / h) + 1;
-        tau = endTime / k;
-        double sigma = a * a * tau * tau / (h * h);
+//        k = (int) Math.ceil(endTime * a / h) + 1;
+//        tau = endTime / k;
+
+//        double sigma = a * a * tau * tau / (h * h);
+        double sigma = valueS;
+        tau = Math.sqrt(sigma) * h / a;
+        k = (int) Math.round(valueT / tau);
         System.out.println("h = " + h + ", tau = " + tau + ", sigma = " + sigma +
                 ", N = " + points + ", K = " + k + ", a = " + a);
 

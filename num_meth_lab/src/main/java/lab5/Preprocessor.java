@@ -22,10 +22,6 @@ import java.util.*;
 import static lab5.Lab5.printMap;
 import static lab5.Lab5.printStat;
 
-// later may be CheckBox (yes or no every methods) to draw several plots
-
-// TODO: several plots
-
 public class Preprocessor extends Application {
     Map<Double, Double[][]> lastSolution;
     double lastK;

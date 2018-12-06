@@ -17,188 +17,100 @@ public class LiebmannMethod extends EllipticMethods {
     double hx;
     double hy;
 
-    LiebmannMethod(int n1, int n2, double aa) {
-        super(n1, n2, aa);
+    LiebmannMethod(int n1, int n2) {
+        super(n1, n2);
     }
 
     void writeMatrix(double eps, double[][] currentSolution) {
-        String filename = "test_matr_2.txt";
+        String filename = "test_matr_3.txt";
         String dir = "./src/main/java/lab7/";
         File file = new File(dir, filename);
         int n1 = valueN1 - 1;
         int n2 = valueN2 - 1;
+        int matr_size = (n1 + 2) * n2;
         try (FileWriter fw = new FileWriter(file, false)) {
-            fw.append(String.valueOf(n1 * n2)).append("\n");
-            // var 1
-            // difference: from 1 to N1-1, in conditions i-1 and j-1
-            for (int i = 1; i <= n1; i++) {
+            fw.append(String.valueOf(matr_size)).append("\n");
+            // var 5
+            for (int i = 0; i <= n1 + 1; i++) {
                 for (int j = 1; j <= n2; j++) {
-                    if (i == 1 && j == 1) {
+                    if (i == 0 && j >= 1) {
                         // case 1
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i + 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j + 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
+                        for (int k = 0; k < matr_size; k++) {
+                            if (k == i * n2 + (j - 1)) {
+                                fw.append(String.valueOf(-1.0)).append(" ");
+                            } else if (k == (i + 1) * n2 + (j - 1)) {
+                                fw.append(String.valueOf(1.0)).append(" ");
                             } else {
                                 fw.append("0.0 ");
                             }
                         }
                         fw.append("\n");
-                    } else if (i == 1 && j > 1 && j < n2) {
+                    } else if (i >= 1 && i <= n1 && j == 1) {
                         // case 2
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i + 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
+                        for (int k = 0; k < matr_size; k++) {
+                            if (k == (i + 1) * n2 + (j - 1)) {
                                 fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j + 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
                             } else if (k == (i - 1) * n2 + (j - 1)) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
+                                fw.append(String.valueOf(hy * hy)).append(" ");
+                            } else if (k == i * n2 + (j + 1 - 1)) {
+                                fw.append(String.valueOf(hx * hx)).append(" ");
+                            } else if (k == i * n2 + (j - 1)) {
+                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy) + hx * hx * hy * hy)).append(" ");
                             } else {
                                 fw.append("0.0 ");
                             }
                         }
                         fw.append("\n");
-                    } else if (i == 1 && j == n2) {
-                        // case 3
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i + 1 - 1) * n2 + (j - 1)) {
+                    } else if (i >= 1 && i <= n1 && j > 1 && j < n2) {
+                        // case 3!
+                        for (int k = 0; k < matr_size; k++) {
+                            if (k == (i - 1) * n2 + (j - 1)) {
 //                                fw.append("y ");
                                 fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1 - 1)) {
+                            } else if (k == (i + 1) * n2 + (j - 1)) {
+//                                fw.append("y ");
+                                fw.append(String.valueOf(hy * hy)).append(" ");
+                            } else if (k == i * n2 + (j - 1 - 1)) {
 //                                fw.append("x ");
                                 fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
+                            } else if (k == i * n2 + (j + 1 - 1)) {
+//                                fw.append("x ");
+                                fw.append(String.valueOf(hx * hx)).append(" ");
+                            } else if (k == i * n2 + (j - 1)) {
 //                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
+                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy) + hx * hx * hy * hy)).append(" ");
                             } else {
                                 fw.append("0.0 ");
                             }
                         }
                         fw.append("\n");
-                    } else if (j == 1 && i > 1 && i < n1) {
-                        // case 4
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i - 1 - 1) * n2 + (j - 1)) {
+                    } else if (j == n2 && i >= 1 && i <= n1) {
+                        // case 4!
+                        for (int k = 0; k < matr_size; k++) {
+                            if (k == (i - 1) * n2 + (j - 1)) {
 //                                fw.append("y ");
                                 fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i + 1 - 1) * n2 + (j - 1)) {
+                            } else if (k == (i + 1) * n2 + (j - 1)) {
 //                                fw.append("y ");
                                 fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j + 1 - 1)) {
+                            } else if (k == i * n2 + (j - 1 - 1)) {
 //                                fw.append("x ");
                                 fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
+                            } else if (k == i * n2 + (j - 1)) {
 //                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
+                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy) + hx * hx * hy * hy)).append(" ");
                             } else {
                                 fw.append("0.0 ");
                             }
                         }
                         fw.append("\n");
-                    } else if (i > 1 && i < n1 && j > 1 && j < n2) {
+                    } else if (i == n1 + 1 && j >= 1 && j <= n2){
                         // case 5
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i - 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i + 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j + 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0.0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (j == n2 && i > 1 && i < n1) {
-                        // case 6
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i - 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i + 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0.0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (i == n1 && j == 1) {
-                        // case 7
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i - 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j + 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0.0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (i == n1 && j > 1 && j < n2) {
-                        // case 8
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i - 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j + 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0.0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (i == n1 && j == n2){
-                        // case 9
-                        for (int k = 0; k < n1 * n2; k++) {
-                            if (k == (i - 1 - 1) * n2 + (j - 1)) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1 - 1)) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == (i - 1) * n2 + (j - 1)) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
+                        for (int k = 0; k < matr_size; k++) {
+                            if (k == (i - 1) * n2 + (j - 1)) {
+                                fw.append(String.valueOf(-1.0)).append(" ");
+                            } else if (k == i * n2 + (j - 1)) {
+                                fw.append(String.valueOf(1.0 - hx)).append(" ");
                             } else {
                                 fw.append("0.0 ");
                             }
@@ -208,191 +120,31 @@ public class LiebmannMethod extends EllipticMethods {
                 }
             }
 
-            for (int i = 1; i <= n1; i++) {
+            for (int i = 0; i <= n1 + 1; i++) {
                 for (int j = 1; j <= n2; j++) {
-                    if (i == 1 && j == 1) {
+                    if (i == 0 && j >= 1) {
                         // case 1
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j))).append(" ");
-                    } else if (i == 1 && j > 1 && j < n2) {
+                        fw.append(String.valueOf(hx * phi1.apply(hy * j))).append(" ");
+                    } else if (i >= 1 && i <= n1 && j == 1) {
                         // case 2
                         fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hy * hy * currentSolution[i - 1][j])).append(" ");
-                    } else if (i == 1 && j == n2) {
+                                - hx * hx * currentSolution[i][j - 1])).append(" ");
+                    } else if (i >= 1 && i <= n1 && j > 1 && j < n2) {
                         // case 3
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hy * hy * currentSolution[i - 1][j]
-                                - hx * hx * currentSolution[i][j + 1])).append(" ");
-                    } else if (j == 1 && i > 1 && i < n1) {
+                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j))).append(" ");
+                    } else if (j == n2 && i >= 1 && i <= n1) {
                         // case 4
                         fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hx * hx * currentSolution[i][j - 1])).append(" ");
-                    } else if (i > 1 && i < n1 && j > 1 && j < n2) {
+                                - hx * hx * currentSolution[i][j + 1])).append(" ");
+                    } else if (i == n1 + 1 && j >= 1 && j <= n2){
                         // case 5
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j))).append(" ");
-                    } else if (j == n2 && i > 1 && i < n1) {
-                        // case 6
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hx * hx * currentSolution[i][j + 1])).append(" ");
-                    } else if (i == n1 && j == 1) {
-                        // case 7
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hy * hy * currentSolution[i + 1][j]
-                                - hx * hx * currentSolution[i][j - 1])).append(" ");
-                    } else if (i == n1 && j > 1 && j < n2) {
-                        // case 8
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hy * hy * currentSolution[i + 1][j])).append(" ");
-                    } else if (i == n1 && j == n2) {
-                        // case 9
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hy * hy * currentSolution[i + 1][j]
-                                - hx * hx * currentSolution[i][j + 1])).append(" ");
+                        fw.append(String.valueOf(hx * phi2.apply(hy * j))).append(" ");
                     }
                 }
             }
-            // var 2
-            /*for (int i = 0; i < valueN1; i++) {
-                for (int j = 0; j < valueN2; j++) {
-                    if (i == 0) {
-                        for (int k = 0; k < valueN1 * valueN2; k++) {
-                            if (k == j) {
-                                fw.append("-1 ");
-                            } else if (k == j + valueN2) {
-                                fw.append("1 ");
-                            } else {
-                                fw.append("0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (j == 0) {
-                        for (int k = 0; k < valueN1 * valueN2; k++) {
-                            if (k == i * valueN2) {
-                                fw.append("-1 ");
-                            } else if (k == i * valueN2 + 1) {
-                                fw.append("1 ");
-                            } else {
-                                fw.append("0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (i == valueN1 - 1 && j == valueN2 - 1) {
-                        // 8
-                        for (int k = 0; k < valueN1 * valueN2; k++) {
-                            if (k == (i - 1) * valueN2 + j) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == i * valueN2 + j - 1) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == i * valueN2 + j) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (j == valueN2 - 1) {
-                        // 6
-                        for (int k = 0; k < valueN1 * valueN2; k++) {
-                            if (k == (i - 1) * valueN2 + j) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i + 1) * valueN2 + j) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == i * valueN2 + j - 1) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == i * valueN2 + j) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else if (i == valueN1 - 1) {
-                        for (int k = 0; k < valueN1 * valueN2; k++) {
-                            if (k == (i - 1) * valueN2 + j) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == i * valueN2 + j - 1) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == i * valueN2 + j + 1) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == i * valueN2 + j) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    } else {
-                        for (int k = 0; k < valueN1 * valueN2; k++) {
-                            if (k == (i - 1) * valueN2 + j) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == (i + 1) * valueN2 + j) {
-//                                fw.append("y ");
-                                fw.append(String.valueOf(hy * hy)).append(" ");
-                            } else if (k == i * valueN2 + j - 1) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == i * valueN2 + j + 1) {
-//                                fw.append("x ");
-                                fw.append(String.valueOf(hx * hx)).append(" ");
-                            } else if (k == i * valueN2 + j) {
-//                                fw.append("2 ");
-                                fw.append(String.valueOf(-2.0 * (hx * hx + hy * hy))).append(" ");
-                            } else {
-                                fw.append("0 ");
-                            }
-                        }
-                        fw.append("\n");
-                    }
-                }
-            }
-            for (int i = 0; i < valueN1; i++) {
-                for (int j = 0; j < valueN2; j++) {
-                    if (i == 0 && j < valueN2) {
-                        // 1
-//                        fw.append("x1y\n");
-                        fw.append(String.valueOf(hx * phi1.apply(hy * j))).append(" ");
-                    } else if (j == 0 && i < valueN1 && i > 0) {
-                        // 2
-//                        fw.append("y3x\n");
-                        fw.append(String.valueOf(hy * phi3.apply(hx * i))).append(" ");
-                    } else if (i == valueN1 - 1 && j == valueN2 - 1) {
-                        // 8
-//                        fw.append("xyf-yu_i+1j-xu_ij+1\n");
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hy * hy * currentSolution[i + 1][j]
-                                - hx * hx * currentSolution[i][j + 1])).append(" ");
-                    } else if (j == valueN2 - 1 && i > 0 && i <= valueN1 - 2) {
-                        // 6
-//                        fw.append("xyf-xu_ij+1\n");
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hx * hx * currentSolution[i][j + 1])).append(" ");
-                    } else if (i == valueN1 - 1 && j > 0 && j <= valueN2 - 2) {
-                        // 7
-//                        fw.append("xyf-yu_i+1j\n");
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j)
-                                - hy * hy * currentSolution[i + 1][j])).append(" ");
-                    } else {
-                        // 5
-//                        fw.append("xyf\n");
-                        fw.append(String.valueOf(hx * hx * hy * hy * f.apply(hx * i, hy * j))).append(" ");
-                    }
-                }
-            }*/
+
             fw.append("\n");
             fw.append(String.valueOf(eps));
-
-//            fw.append("").append(String.valueOf(times)).append("\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -602,12 +354,13 @@ public class LiebmannMethod extends EllipticMethods {
 
     @Override
     double[] solve(int method, double relaxation) throws IOException, PythonExecutionException {
-        valueN1 = 10; // x, str
-        valueN2 = 10; // y, col
+//        valueN1 = 3; // x, str
+//        valueN2 = 5; // y, col
+        // comment for input N
         hx = right_x / valueN1;
         hy = right_y / valueN2;
-        System.out.println("hx : " + hx + ", hy: " + hy);
-        double eps_write = 0.0005;
+        System.out.println("hx : " + hx + ", hy: " + hy + ", hx^2 + hy^2 = " + (hx * hx + hy * hy));
+        double eps_write = 0.00005;
         double[][] previousSolution = new double[valueN1 + 1][valueN2 + 1];
         double[][] currentSolution = new double[valueN1 + 1][valueN2 + 1];
         double[][] realSolution = new double[valueN1 + 1][valueN2 + 1];
@@ -616,28 +369,25 @@ public class LiebmannMethod extends EllipticMethods {
                 realSolution[i][j] = analyticSolution.apply(hx * i, hy * j);
             }
         }
-        for (int j = 0; j <= valueN2; j++) {
-            currentSolution[0][j] = phi1.apply(hy * j);
-            currentSolution[valueN1][j] = phi2.apply(hy * j);
-        }
-        for (int i = 0; i < valueN1; i++) {
+        fullSolution = new ArrayList<>();
+        for (int i = 0; i <= valueN1; i++) {
             currentSolution[i][0] = phi3.apply(hx * i);
             currentSolution[i][valueN2] = phi4.apply(hx * i);
         }
 //        printMatrix(currentSolution);
 
-//        writeMatrix(eps_write, currentSolution);
-        double[] res_s = fillDataAndSolve(eps_write, currentSolution);
+        writeMatrix(eps_write, currentSolution);
+//        double[] res_s = fillDataAndSolve(eps_write, currentSolution);
 
-
-//        IterativeSiedelAlgorithm alg_Siedel = new IterativeSiedelAlgorithm();
-//        alg_Siedel.readData("./src/main/java/lab7/test_matr_2.txt");
-//        double[] res_s = alg_Siedel.solveSiedel();
+        IterativeSiedelAlgorithm alg_Siedel = new IterativeSiedelAlgorithm();
+        alg_Siedel.readData("./src/main/java/lab7/test_matr_3.txt");
+        double[] res_s = alg_Siedel.solveIterative();
 //        System.out.println("Got res of size " + res_s.length + ": ");
 //        printArray(res_s);
-        for (int i = 1; i < valueN1; i++) {
+
+        for (int i = 0; i <= valueN1; i++) {
             for (int j = 1; j < valueN2; j++) {
-                currentSolution[i][j] = res_s[(i - 1) * (valueN1 - 1) + (j - 1)];
+                currentSolution[i][j] = res_s[i * (valueN2 - 1) + (j - 1)];
             }
         }
 //        System.out.println("After iteration method: ");
@@ -647,14 +397,14 @@ public class LiebmannMethod extends EllipticMethods {
             System.arraycopy(currentSolution[i], 0, previousSolution[i], 0, currentSolution[i].length);
         }
 
-        double eps_res = 0.0005;
+        double eps_res = 0.00005;
         double err = matrixNorm(currentSolution, realSolution);
 //        System.out.println("\nReal solution: ");
 //        printMatrix(realSolution);
-        System.out.println("Err before method: " + err);
+//        System.out.println("Err before method: " + err);
         int cnt = 0;
         if (method == 1) {
-            System.out.println("~~~ Liebmann method ~~~");
+//            System.out.println("~~~ Liebmann method ~~~");
             while (err > eps_res) {
                 for (int i = 1; i <= valueN1 - 1; i++) {
                     for (int j = 1; j <= valueN2 - 1; j++) {
@@ -663,44 +413,47 @@ public class LiebmannMethod extends EllipticMethods {
                                 + hx * hx * previousSolution[i][j + 1]
                                 + hx * hx * previousSolution[i][j - 1]
                                 - hx * hx * hy * hy * f.apply(hx * i, hy * j))
-                                / (2.0 * (hx * hx + hy * hy));
+                                / (2.0 * hx * hx + 2.0 * hy * hy - hx * hx * hy * hy);
                     }
                 }
-/*                for (int j = 0; j <= valueN2 - 1; j++) {
+                for (int j = 1; j <= valueN2 - 1; j++) {
                     currentSolution[0][j] = currentSolution[1][j] - hx * phi1.apply(hy * j);
+                    currentSolution[valueN1][j] = (hx * phi2.apply(hy * j) + currentSolution[valueN1 - 1][j])
+                            / (1.0 - hx);
                 }
-                for (int i = 1; i < valueN1 - 1; i++) {
-                    currentSolution[i][0] = currentSolution[i][1] - hy * phi3.apply(hx * i);
-                }*/
 
-                err = matrixNorm(currentSolution, realSolution);
-//                System.out.println("Loop err: " + err);
+                err = matrixNorm(currentSolution, previousSolution);
                 for (int i = 0; i < currentSolution.length; i++) {
                     System.arraycopy(currentSolution[i], 0, previousSolution[i], 0, currentSolution[i].length);
                 }
                 cnt++;
             }
         } else if (method == 2) {
-            System.out.println("~~~ Siedel method ~~~");
+//            System.out.println("~~~ Siedel method ~~~");
             while (err > eps_res) {
-                for (int i = 1; i < valueN1; i++) {
-                    for (int j = 1; j < valueN2; j++) {
+                for (int i = 1; i <= valueN1 - 1; i++) {
+                    for (int j = 1; j <= valueN2 - 1; j++) {
                         currentSolution[i][j] = (hy * hy * previousSolution[i + 1][j]
                                 + hx * hx * previousSolution[i][j + 1]
                                 + hy * hy * currentSolution[i - 1][j]
                                 + hx * hx * currentSolution[i][j - 1]
                                 - hx * hx * hy * hy * f.apply(hx * i, hy * j))
-                                / (2.0 * (hx * hx + hy * hy));
+                                / (2.0 * hx * hx + 2.0 * hy * hy - hx * hx * hy * hy);
                     }
                 }
-                err = matrixNorm(currentSolution, realSolution);
+                for (int j = 1; j <= valueN2 - 1; j++) {
+                    currentSolution[0][j] = currentSolution[1][j] - hx * phi1.apply(hy * j);
+                    currentSolution[valueN1][j] = (hx * phi2.apply(hy * j) + currentSolution[valueN1 - 1][j])
+                            / (1.0 - hx);
+                }
+                err = matrixNorm(currentSolution, previousSolution);
                 for (int i = 0; i < currentSolution.length; i++) {
                     System.arraycopy(currentSolution[i], 0, previousSolution[i], 0, currentSolution[i].length);
                 }
                 cnt++;
             }
         } else if (method == 3) {
-            System.out.println("~~~ Relaxation method ~~~");
+//            System.out.println("~~~ Relaxation method ~~~");
             while (err > eps_res) {
                 for (int i = 1; i < valueN1; i++) {
                     for (int j = 1; j < valueN2; j++) {
@@ -710,10 +463,15 @@ public class LiebmannMethod extends EllipticMethods {
                                 + hy * hy * currentSolution[i - 1][j]
                                 + hx * hx * currentSolution[i][j - 1]
                                 - hx * hx * hy * hy * f.apply(hx * i, hy * j))
-                                / (2.0 * (hx * hx + hy * hy));
+                                / (2.0 * hx * hx + 2.0 * hy * hy - hx * hx * hy * hy);
                     }
                 }
-                err = matrixNorm(currentSolution, realSolution);
+                for (int j = 1; j <= valueN2 - 1; j++) {
+                    currentSolution[0][j] = currentSolution[1][j] - hx * phi1.apply(hy * j);
+                    currentSolution[valueN1][j] = (hx * phi2.apply(hy * j) + currentSolution[valueN1 - 1][j])
+                            / (1.0 - hx);
+                }
+                err = matrixNorm(currentSolution, previousSolution);
                 for (int i = 0; i < currentSolution.length; i++) {
                     System.arraycopy(currentSolution[i], 0, previousSolution[i], 0, currentSolution[i].length);
                 }
@@ -725,7 +483,29 @@ public class LiebmannMethod extends EllipticMethods {
         }
 //        System.out.println("\nSolution:");
 //        printMatrix(currentSolution);
+//        System.out.println("\nReal solution: ");
+//        printMatrix(realSolution);
         System.out.println("Final err: " + err + ", cnt: " + cnt);
+
+        for (int i = 0; i < valueN1 + 1; i++) {
+            ArrayList<Double> a = new ArrayList<>();
+            for (int j = 0; j < valueN2 + 1; j++) {
+                a.add(currentSolution[i][j]);
+            }
+            fullSolution.add(a);
+        }
         return new double[0];
+    }
+
+    ArrayList<ArrayList<Double>> getFullSolution() {
+        return fullSolution;
+    }
+
+    double getHx() {
+        return hx;
+    }
+
+    public double getHy() {
+        return hy;
     }
 }

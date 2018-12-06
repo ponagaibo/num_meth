@@ -22,10 +22,12 @@ public abstract class HyperbolicMethods {
 
     protected static int valueN;
     protected static double valueT = 3.0 * Math.PI;
+    static double valueS;
 
-    HyperbolicMethods(int n, double aa) {
+    HyperbolicMethods(int n, double aa, double s) {
         this.valueN = n;
         this.a = aa;
+        this.valueS = s;
     }
 
     abstract double[] solve(int approx_x, int approx_t) throws IOException, PythonExecutionException;

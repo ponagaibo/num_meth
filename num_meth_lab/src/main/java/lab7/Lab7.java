@@ -1,5 +1,6 @@
 package lab7;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Lab7 {
@@ -47,15 +48,16 @@ public class Lab7 {
         double sum = 0;
         double max = 0;
         for (int i = 0; i < a.length; i++) {
-            sum = 0.0;
+//            sum = 0.0;
             for (int j = 0; j < a[0].length; j++) {
-                sum += Math.abs(a[i][j] - b[i][j]);
+                double tmp = a[i][j] - b[i][j];
+                sum += tmp * tmp;
             }
-            if (sum > max) {
-                max = sum;
-            }
+//            if (sum > max) {
+//                max = sum;
+//            }
         }
-        return max;
+        return Math.sqrt(sum);
     }
     public static void printMap(Map<Double, Double[][]> m, double tau) {
         for(Map.Entry<Double, Double[][]> entry: m.entrySet()) {
@@ -68,6 +70,14 @@ public class Lab7 {
         }
     }
 
+    public static void printArrArr(ArrayList<ArrayList<Double>> a) {
+        for (ArrayList<Double> al:a) {
+            for (Double d:al) {
+                System.out.print(d + " ");
+            }
+            System.out.println();
+        }
+    }
     public static void printStat(Map<Double, Double[][]> m, Function2<Double, Double, Double> real,
                                  double tau, double h) {
         for(Map.Entry<Double, Double[][]> entry: m.entrySet()) {
@@ -80,6 +90,21 @@ public class Lab7 {
                 double error = Math.abs(value[1][i] - r);
                 System.out.println("" + value[0][i] + " : " + value[1][i] + " : " + r + " : " + error);
             }
+        }
+    }
+
+    public static void printStat(ArrayList<ArrayList<Double>> a, Function2<Double, Double, Double> real,
+                                 double hx, double hy) {
+        double j = 0;
+        for(ArrayList<Double> entry : a) {
+            System.out.println(" x : y | u(x,y) : real(x,y) : error(x,y)");
+            for (int i = 0; i < entry.size(); i++) {
+                double myRes = entry.get(i);
+                double r = real.apply(hx * j, hy * i);
+                double error = Math.abs(myRes - r);
+                System.out.println(hx * i + " : " + hy * j + " | " + myRes + " : " + r + " : " + error);
+            }
+            j++;
         }
     }
 

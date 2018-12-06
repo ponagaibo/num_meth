@@ -26,6 +26,7 @@ public class Preprocessor extends Application {
     double lastTau;
     double lastA;
     double lastH;
+    double lastS;
     double maxTime = 3.0 * Math.PI;
     Lab6.Function2<Double, Double, Double> analyticSolution =
             (x, t) -> Math.sin(x - lastA * t) + Math.cos(x + lastA * t);
@@ -37,15 +38,19 @@ public class Preprocessor extends Application {
         final int[] aprTSelected = {0};
         final boolean[] nSelected = {false};
         final boolean[] aSelected = {false};
+        final boolean[] sSelected = {false};
 
         Text textChooseMethod = new Text("Choose method: ");
         Text textChooseAprX = new Text("Choose space variable approximation");
         Text textChooseAprT = new Text("Choose time variable approximation");
         Text textEnterN = new Text("Enter N:");
         Text textEnterA = new Text("Enter a:");
+        Text textEnterS = new Text("Enter sigma: ");
 
         TextField textFieldForN = new TextField();
         TextField textFieldForA = new TextField();
+        TextField textFieldForS = new TextField();
+        textFieldForS.setPromptText("< 1");
 
         Button buttonSolve = new Button("Solve");
         Button buttonPlot = new Button("Show plot");
@@ -90,6 +95,7 @@ public class Preprocessor extends Application {
         labelTimeValue.setVisible(false);
 
         CheckBox checkBoxTable = new CheckBox("Show table");
+
         File file = new File("C:/Users/Anastasiya/Desktop/MAI/numMeth/num_meth_lab/src/main/java/lab6/var.jpg");
         String localUrl = null;
         try {
@@ -118,6 +124,13 @@ public class Preprocessor extends Application {
         });
 
         textFieldForA.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                buttonPlot.setDisable(true);
+            }
+        });
+
+        textFieldForS.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 buttonPlot.setDisable(true);
@@ -171,7 +184,7 @@ public class Preprocessor extends Application {
         buttonSolve.setOnAction(event -> {
             if ((textFieldForN.getText() != null && !textFieldForN.getText().isEmpty())) {
                 nSelected[0] = true;
-                if (nSelected[0] && aSelected[0]) {
+                if (nSelected[0] && aSelected[0] && sSelected[0]) {
                     buttonSolve.setDisable(false);
                 }
             } else {
@@ -180,7 +193,7 @@ public class Preprocessor extends Application {
 
             if ((textFieldForA.getText() != null && !textFieldForA.getText().isEmpty())) {
                 aSelected[0] = true;
-                if (nSelected[0] && aSelected[0]) {
+                if (nSelected[0] && aSelected[0] && sSelected[0]) {
                     buttonSolve.setDisable(false);
                 }
                 lastA = Double.parseDouble(textFieldForA.getText());
@@ -188,13 +201,24 @@ public class Preprocessor extends Application {
                 System.out.println("You have not entered a");
             }
 
-            if (nSelected[0] && aSelected[0]
+            if ((textFieldForS.getText() != null && !textFieldForS.getText().isEmpty())) {
+                sSelected[0] = true;
+                if (nSelected[0] && aSelected[0] && sSelected[0]) {
+                    buttonSolve.setDisable(false);
+                }
+                lastS = Double.parseDouble(textFieldForS.getText());
+            } else {
+                System.out.println("You have not entered a");
+            }
+
+            if (nSelected[0] && aSelected[0] && sSelected[0]
                     && methodSelected[0] != 0 && aprXSelected[0] != 0 && aprTSelected[0] != 0) {
                 Integer nn = Integer.parseInt(textFieldForN.getText());
                 Double aa = Double.parseDouble(textFieldForA.getText());
+                Double ss = Double.parseDouble(textFieldForS.getText());
                 lastA = aa;
                 if (methodSelected[0] == 1) {
-                    ExplicitCrossMethod em = new ExplicitCrossMethod(nn, aa);
+                    ExplicitCrossMethod em = new ExplicitCrossMethod(nn, aa, ss);
                     try {
                         em.solve(aprXSelected[0], aprTSelected[0]);
                     } catch (IOException | PythonExecutionException e) {
@@ -205,7 +229,7 @@ public class Preprocessor extends Application {
                     lastTau = em.getTau();
                     lastH = em.getH();
                 } else if (methodSelected[0] == 2) {
-                    ImplicitMethod im = new ImplicitMethod(nn, aa);
+                    ImplicitMethod im = new ImplicitMethod(nn, aa, ss);
                     try {
                         im.solve(aprXSelected[0], aprTSelected[0]);
                     } catch (IOException | PythonExecutionException e) {
@@ -236,8 +260,15 @@ public class Preprocessor extends Application {
         buttonPlot.setOnAction(event -> {
             double thisTime = sliderTime.getValue();
             double timeNumber = Math.floor(thisTime / lastTau);
-            System.out.println("thisTime: " + thisTime + ", N: " + timeNumber);
+//            System.out.println("thisTime: " + thisTime + ", N: " + timeNumber);
             Double[][] thisSolution = lastSolution.get(timeNumber);
+//            System.out.println("Solution of size " + thisSolution.length + " x " + thisSolution[0].length + ":");
+/*            for (int i = 0; i < thisSolution.length; i++) {
+                for (int j = 0; j < thisSolution[0].length; j++) {
+                    System.out.println(thisSolution[i][j] + " ");
+                }
+                System.out.println();
+            }*/
 
             Double[] arrayRealY = new Double[thisSolution[0].length];
             for (int i = 0; i < thisSolution[0].length; i++) {
@@ -274,6 +305,8 @@ public class Preprocessor extends Application {
         gridPane.add(textFieldForN, 1, 5);
         gridPane.add(textEnterA, 0, 6);
         gridPane.add(textFieldForA, 1, 6);
+        gridPane.add(textEnterS, 0, 7);
+        gridPane.add(textFieldForS, 1, 7);
 
         gridPane.add(checkBoxTable, 0, 9);
         gridPane.add(buttonSolve, 1, 9);
