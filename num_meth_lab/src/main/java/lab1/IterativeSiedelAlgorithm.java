@@ -111,20 +111,20 @@ public class IterativeSiedelAlgorithm {
         }
         precision = eps;
 
-//        System.out.println("Get dim: " + dim);
-//        System.out.println("Get matr: ");
-//        for (int i = 0; i < m.length; i++) {
-//            for (int j = 0; j < m[0].length; j++) {
-//                System.out.print(m[i][j] + " ");
-//            }
-//            System.out.print("\n");
-//        }
-//        System.out.println("Get right part: ");
-//        for (int i = 0; i < m.length; i++) {
-//            System.out.print(d[i] + " ");
-//        }
-//        System.out.println("\n");
-//        System.out.println("Get eps: " + eps);
+        System.out.println("Get dim: " + dim);
+        System.out.println("Get matr: ");
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[0].length; j++) {
+                System.out.print(m[i][j] + " ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println("Get right part: ");
+        for (int i = 0; i < m.length; i++) {
+            System.out.print(d[i] + " ");
+        }
+        System.out.println("\n");
+        System.out.println("Get eps: " + eps);
     }
 
     private void print_matrix(Element[] coefs) {
@@ -154,6 +154,24 @@ public class IterativeSiedelAlgorithm {
         for (int i = 0; i < dim; i++) {
             if (total_in_str[i] > max) {
                 max = total_in_str[i];
+            }
+        }
+        return max;
+    }
+
+    private double matrix_norm_c(Element[] matrix) {
+        double[] total_in_col = new double[dim];
+        for (int i = 0; i < dim; i++) {
+            for (Element aMatrix : matrix) {
+                if (aMatrix.cl == i) {
+                    total_in_col[i] += Math.abs(aMatrix.value);
+                }
+            }
+        }
+        double max = 0;
+        for (int i = 0; i < dim; i++) {
+            if (total_in_col[i] > max) {
+                max = total_in_col[i];
             }
         }
         return max;
@@ -294,13 +312,19 @@ public class IterativeSiedelAlgorithm {
     }
 
     public double[] solveIterative() {
+        System.out.println("1");
         to_equivalent();
         solving_iter = new double[dim];
         System.arraycopy(beta, 0, solving_iter,0, dim);
         double eps = precision + 1;
         int cnt_iter = 0;
-        while (eps > precision) {
+        System.out.println("Eps = " + eps + ", prec = " + precision);
+        int cnt = 5;
+        while (eps > precision && cnt_iter < cnt) {
+            System.out.println("2");
+
             double[] tmp = multiply(alpha, solving_iter);
+            System.out.println("3");
             for (int i = 0; i < dim; i++) {
                 tmp[i] += beta[i];
             }
@@ -308,10 +332,16 @@ public class IterativeSiedelAlgorithm {
             for (int i = 0; i < dim; i++) {
                 diff[i] = tmp[i] - solving_iter[i];
             }
-            eps = (vector_norm(diff) * matrix_norm(alpha)) / (1 - matrix_norm(alpha));
+            System.out.println("Vector norm: " + vector_norm(diff));
+            System.out.println("Matrix norm: " + matrix_norm_c(alpha));
+            eps = (vector_norm(diff) * matrix_norm_c(alpha)) / (1 - matrix_norm_c(alpha));
+            System.out.println("4");
+            System.out.println("New eps = " + eps);
+
             System.arraycopy(tmp, 0, solving_iter,0, dim);
             cnt_iter++;
         }
+        System.out.println("5");
         return solving_iter;
     }
 

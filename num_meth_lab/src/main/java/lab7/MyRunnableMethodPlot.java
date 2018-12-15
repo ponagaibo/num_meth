@@ -12,7 +12,7 @@ import java.util.List;
 
 import static lab7.Lab7.arrayNorm;
 
-public class MyRunnableMethodPlot implements Runnable{
+public class MyRunnableMethodPlot implements Runnable {
     ArrayList<ArrayList<Double>> myRes;
     ArrayList<ArrayList<Double>> realSolution;
     List<List<Double>> error;
@@ -42,7 +42,7 @@ public class MyRunnableMethodPlot implements Runnable{
             error.add(tmpErr);
             j++;
         }
-}
+    }
 
     @Override
     public void run() {
